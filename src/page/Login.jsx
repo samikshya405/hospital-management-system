@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -8,10 +8,30 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import CustomInput from "../component/auth/CustomInput";
+// import CustomInput from "../component/auth/CustomInput";
 import loginBg from "../assets/image/loginBg.png";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
+import { CustomInput, CustomSelect } from "../component/auth/CustomInput";
 const inputs = [
+  {
+    name: "department",
+    label: "Select Department",
+    id: "department",
+    type: "select",
+    required: true,
+
+    option: [
+      {
+        name: "Receptionist",
+      },
+      {
+        name: "Doctor",
+      },
+      {
+        name: "Admin",
+      },
+    ],
+  },
   {
     name: "email",
     label: "Email",
@@ -25,7 +45,27 @@ const inputs = [
     type: "password",
   },
 ];
+const initialState = {
+  department: "",
+
+  email: "",
+  password: "",
+};
 const login = () => {
+  const [formData, setformData] = useState(initialState);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setformData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log(formData);
+  };
+
   return (
     <Box padding={3}>
       <Box
@@ -47,9 +87,22 @@ const login = () => {
           <Typography align="center" component="h1" variant="h5">
             Log in
           </Typography>
-          <Box component="form" sx={{ mt: 1 }}>
+
+          <Box component="form" sx={{ mt: 1 }} onSubmit={handleSubmit}>
             {inputs.map((input, index) => {
-              return <CustomInput key={index} {...input} />;
+              return (
+                <div key={index}>
+                  {input.type !== "select" ? (
+                    <CustomInput {...input} onChange={handleChange} />
+                  ) : (
+                    <CustomSelect
+                      input={input}
+                      value={formData[input.name]}
+                      onChange={handleChange}
+                    />
+                  )}
+                </div>
+              );
             })}
 
             <Button
