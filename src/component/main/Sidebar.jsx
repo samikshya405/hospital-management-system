@@ -1,26 +1,61 @@
 import { Box, Stack } from "@mui/material";
 import React from "react";
 import HomeIcon from "@mui/icons-material/Home";
-import AssignmentSharpIcon from '@mui/icons-material/AssignmentSharp';
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import PaidIcon from "@mui/icons-material/Paid";
 
+import { data } from "./dataSet";
+import { useNavigate } from "react-router-dom";
 
-const Sidebar = () => {
+const Sidebar = ({ title }) => {
+  const navigate = useNavigate();
+  const handleClick = (path) => {
+    navigate(path);
+  };
   return (
-    <Box width={"5vw"}  height={"100%"} bgcolor={"var(--sidebar)"} display={"flex"} flexDirection={"column"}  alignItems={"center"} >
-      <Box width={"100%"} bgcolor={"var(--dark)"} display={"flex"} justifyContent={"center"} py={1}>
-        <HomeIcon  sx={{color:"var(--activeMenu)", fontSize:"30px"}} />
+    <Box
+      width={"5vw"}
+      height={"100%"}
+      bgcolor={"var(--sidebar)"}
+      display={"flex"}
+      flexDirection={"column"}
+      alignItems={"center"}
+      gap={2}
+    >
+      <Box
+        width={"100%"}
+        bgcolor={title === "DashBoard" ? "var(--dark)" : "inherit"}
+        display={"flex"}
+        justifyContent={"center"}
+        py={1}
+        sx={{ cursor: "pointer" }}
+        onClick={() => handleClick("/")}
+      >
+        <HomeIcon sx={{ color: "var(--activeMenu)", fontSize: "30px" }} />
       </Box>
-      <Box width={"100%"}  display={"flex"} justifyContent={"center"} py={1}>
-        <AssignmentSharpIcon sx={{color:"var(--inactiveMenu)", fontSize:"30px"}} />
-      </Box>
-      <Box width={"100%"}  display={"flex"} justifyContent={"center"} py={1}>
-        <CalendarMonthIcon  sx={{color:"var(--inactiveMenu)",fontSize:"30px"}}  />
-      </Box>
-      <Box width={"100%"}  display={"flex"} justifyContent={"center"} py={1}>
-        <PaidIcon  sx={{color:"var(--inactiveMenu)",fontSize:"30px"}}  />
-      </Box>
+
+      {data.map((icon) => {
+        return (
+          <Box
+            key={icon.department}
+            bgcolor={title === icon.department ? "var(--dark)" : "inherit"}
+            width={"100%"}
+            display={"flex"}
+            justifyContent={"center"}
+            py={1}
+            sx={{ cursor: "pointer" }}
+            onClick={() => handleClick(icon.link)}
+          >
+            <icon.icon
+              style={{
+                color:
+                  title === icon.department
+                    ? "var(--activeMenu)"
+                    : "var(--inactiveMenu)",
+                fontSize: "30px",
+              }}
+            />
+          </Box>
+        );
+      })}
     </Box>
   );
 };
