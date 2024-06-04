@@ -10,9 +10,9 @@ const Header = () => {
       height={"6vh"}
       display={"flex"}
       justifyContent={"space-between"}
-      px={3}
+      px={2}
       alignItems={"center"}
-      bgcolor={"var(--bgColor)"}
+   
     >
       <LocalHospitalIcon sx={{ color: "red", fontSize: "40px" }} />
       <Box display={"flex"} alignItems={"center"} gap={2}>
