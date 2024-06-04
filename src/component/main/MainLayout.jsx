@@ -8,23 +8,24 @@ import Sidebar from "./Sidebar";
 
 const MainLayout = ({children}) => {
   return (
-    <>
+    <Box bgcolor={"var(--bgColor)"}>
       <Header />
-      <Box height={"94vh"} bgcolor={"var(--secondary)"}  display={"flex"}>
+      <Box height={"94vh"}   display={"flex"}>
         <Sidebar />
         <Box width={"95vw"}>
-          <Box height={"46px"} width={"100%"} display={"flex"} alignItems={"center"} >
+          <Box height={"46px"} bgcolor={"var(--secondary)"} width={"100%"} display={"flex"} alignItems={"center"} >
             <Typography paddingLeft={1} sx={{fontWeight:"bold", color:"var(--dark)"}}>Dashboard</Typography>
 
           </Box>
-          <Box height={"calc(100% - 92px)"} bgcolor={"var(--bgColor)"} sx={{margin:"0 8px"}} >
+          <Box height={"calc(94vh - 92px)"}  sx={{margin:"0 8px"}} >
             {children}
 
           </Box>
+      
         </Box>
       
       </Box>
-    </>
+    </Box>
   );
 };
 
