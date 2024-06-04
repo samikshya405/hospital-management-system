@@ -22,3 +22,13 @@
   font-size: 40px;
  
 }
+.circle{
+  height: 150px;
+  width: 150px;
+  /* border-radius: 5px; */
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
