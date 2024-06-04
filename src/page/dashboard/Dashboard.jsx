@@ -1,73 +1,18 @@
 import React from "react";
 import MainLayout from "../../component/main/MainLayout";
 import { Box, Grid, Paper, Typography } from "@mui/material";
-import registerForm from "../../assets/image/form.png";
-import appointment from "../../assets/image/appointment.png";
-import clinical from "../../assets/image/clinical.png";
-import doctor from "../../assets/image/doctor.png";
-import emergency from "../../assets/image/emergency.png";
-import billing from "../../assets/image/billing.png";
-import emr from '../../assets/image/emr.png'
-import inPatient from '../../assets/image/inPatient.png'
-import outPatient from '../../assets/image/outPatient.png'
-import patient from '../../assets/image/patient.png'
-import graph from '../../assets/image/graph.png'
 
-const data = [
-  {
-    department: "Patient Registration Form",
-    img: registerForm,
-  },
-  {
-    department: "Appointment",
-    img: appointment,
-  },
-  {
-    department: "Clinical Management",
-    img: clinical,
-  },
-  {
-    department: "Doctor Information",
-    img: doctor,
-  },
-  {
-    department: "Emergency",
-    img: emergency,
-  },
-  {
-    department: "Electronic Medical Record",
-    img: emr,
-  },
-  {
-    department: "InPatient Management",
-    img: inPatient,
-  },
-  {
-    department: "OutPatient Management",
-    img: outPatient,
-  },
-  
-  
-
-  {
-    department: "Billing and Payment",
-    img: billing,
-  },
-  {
-    department: "Patient Information",
-    img: patient,
-  },
-  {
-    department:"Statistic and Reports",
-    img:graph
-  }
-  
-];
+import { useNavigate } from "react-router-dom";
+import { data } from "../../component/main/dataSet";
 
 const Dashboard = () => {
-  
+  const navigate = useNavigate();
+  const hanldeClick = (path) => {
+    navigate(path);
+  };
+
   return (
-    <MainLayout>
+    <MainLayout title="DashBoard">
       <Grid container p={3} spacing={2}>
         {data.map((item, index) => (
           <Grid
@@ -78,12 +23,11 @@ const Dashboard = () => {
             md={3}
             lg={2}
             xl={2}
-            
             display={"flex"}
             flexDirection={"column"}
             alignItems={"center"}
-            sx={{cursor:"pointer"}}
-            // bgcolor={"red"}
+            sx={{ cursor: "pointer" }}
+            onClick={() => hanldeClick(item.link)}
           >
             <Box className="circle">
               <img
@@ -93,7 +37,13 @@ const Dashboard = () => {
                 style={{ overflow: "hidden" }}
               />
             </Box>
-            <Typography textAlign={"center"} py={1} sx={{color:"var(--dark)"}}>{item.department}</Typography>
+            <Typography
+              textAlign={"center"}
+              py={1}
+              sx={{ color: "var(--dark)" }}
+            >
+              {item.department}
+            </Typography>
           </Grid>
         ))}
       </Grid>
