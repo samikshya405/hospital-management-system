@@ -54,13 +54,13 @@ export const data = [
     department: "Emergency",
     img: emergency,
     link: "/emergency",
-    icon: MdOutlineEmergencyShare,
+    icon: NotificationImportantIcon,
   },
   {
     department: "Electronic Medical Record",
     img: emr,
     link: "/emr",
-    icon: NotificationImportantIcon,
+    icon: GrDocumentCloud ,
   },
   {
     department: "InPatient Management",
