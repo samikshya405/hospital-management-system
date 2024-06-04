@@ -9,9 +9,9 @@ import {
   Typography,
 } from "@mui/material";
 // import CustomInput from "../component/auth/CustomInput";
-import loginBg from "../assets/image/loginBg.png";
+import loginBg from "../../assets/image/loginBg.png";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
-import { CustomInput, CustomSelect } from "../component/auth/CustomInput";
+import { CustomInput, CustomSelect } from "../../component/auth/CustomInput";
 const inputs = [
   {
     name: "department",
