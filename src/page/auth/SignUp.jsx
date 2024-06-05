@@ -10,8 +10,29 @@ import {
 } from "@mui/material";
 import loginBg from "../../assets/image/loginBg.png";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
-import { CustomInput } from "../../component/auth/CustomInput";
+import { CustomInput, CustomSelect } from "../../component/auth/CustomInput";
+import { postNewUser } from "../../utils/axiosHelper";
+import { toast } from "react-toastify";
 const inputs = [
+  {
+    name: "department",
+    label: "Select Department",
+    id: "department",
+    type: "select",
+    required: true,
+
+    option: [
+      {
+        name: "Receptionist",
+      },
+      {
+        name: "Doctor",
+      },
+      {
+        name: "Admin",
+      },
+    ],
+  },
   {
     name: "name",
     label: "Name",
@@ -42,6 +63,7 @@ const inputs = [
   },
 ];
 const initialState = {
+  department: "",
   name: "",
   email: "",
   password: "",
@@ -53,6 +75,7 @@ const SignUp = () => {
     password: false,
     confirmPassword: false,
   });
+  const [isLoading, setIsLoading] = useState(false);
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "password" || name === "confirmPassword") {
@@ -61,16 +84,31 @@ const SignUp = () => {
     setformData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { confirmPassword, ...rest } = formData;
     if (confirmPassword !== formData.password) {
       setError({ password: true, confirmPassword: true });
-    } else {
-      setError({ password: false, confirmPassword: false });
-      console.log(formData);
+      return;
     }
     console.log(formData);
+    const signInPromise = postNewUser(rest);
+    toast.promise(signInPromise, {
+      pending: "In Progress...",
+    });
+    setIsLoading(true);
+    const data = await signInPromise;
+    setIsLoading(false);
+    
+    // console.log(data);
+  
+    if(data.status === "success"){
+      toast.success("Your account has been created",{
+        hideProgressBar:true,
+        position: "top-center"
+      });
+      setformData(initialState)
+    }
   };
   return (
     <Box padding={3}>
@@ -96,25 +134,47 @@ const SignUp = () => {
           <Box component="form" sx={{ mt: 1 }} onSubmit={handleSubmit}>
             {inputs.map((input, index) => {
               return (
-                <CustomInput
-                  key={index}
-                  {...input}
-                  onChange={handleChange}
-                  error={error[input.name]}
-                  helperText={error[input.name] && "Passwords do not match"}
-                />
+                <div key={index}>
+                  {input.type !== "select" ? (
+                    <CustomInput
+                      {...input}
+                      value={formData[input.name]}
+                      onChange={handleChange}
+                      error={error[input.name]}
+                      helperText={error[input.name] && "Passwords do not match"}
+                    />
+                  ) : (
+                    <CustomSelect
+                      input={input}
+                      value={formData[input.name]}
+                      onChange={handleChange}
+                    />
+                  )}
+                </div>
               );
             })}
 
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              style={{ background: "var(--primary)" }}
-            >
-              Sign Up
-            </Button>
+            {isLoading ? (
+              <Button
+                fullWidth
+                disabled
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                style={{ background: "var(--primary)" }}
+              >
+                Sign Up
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                style={{ background: "var(--primary)" }}
+              >
+                Sign Up
+              </Button>
+            )}
             <Typography align="center">
               <Link href="/" variant="body2" align="center">
                 {"Already have an account? Login In"}
