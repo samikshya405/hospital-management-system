@@ -12,6 +12,9 @@ import {
 import loginBg from "../../assets/image/loginBg.png";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import { CustomInput, CustomSelect } from "../../component/auth/CustomInput";
+import { fetchUserInfo, userLogin } from "../../utils/axiosHelper";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 const inputs = [
   {
     name: "department",
@@ -47,23 +50,41 @@ const inputs = [
 ];
 const initialState = {
   department: "",
-
   email: "",
   password: "",
 };
 const login = () => {
   const [formData, setformData] = useState(initialState);
+  const navigate = useNavigate();
+  const [isInValid, setIsInvalid] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    setIsInvalid(false);
 
     setformData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const loginPromise = userLogin(formData);
+    toast.promise(loginPromise, {
+      pending: "In Progress...",
+    });
+    const result = await loginPromise;
+    console.log(result);
+    if (result.status === "success") {
+      navigate("/");
+    }
+    const {status,tokens} = result
+    status === "success" ? navigate("/") : setIsInvalid(true);
+    if(status === "success"){
+      sessionStorage.setItem("accessJWT", tokens.accessJWT);
+      localStorage.setItem("refreshJWT", tokens.refreshJWT)
 
-    console.log(formData);
+    }
+   const user = await fetchUserInfo();
+   console.log("user",user);
   };
 
   return (
@@ -89,6 +110,11 @@ const login = () => {
           </Typography>
 
           <Box component="form" sx={{ mt: 1 }} onSubmit={handleSubmit}>
+            {isInValid && (
+              <Typography p={1} color={"red"}>
+                Invalid login Credentials !
+              </Typography>
+            )}
             {inputs.map((input, index) => {
               return (
                 <div key={index}>
