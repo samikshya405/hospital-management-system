@@ -13,12 +13,15 @@ const Sidebar = ({ title }) => {
   return (
     <Box
       width={"5vw"}
-      height={"100%"}
+      height={"94vh"}
+      
       bgcolor={"var(--sidebar)"}
       display={"flex"}
       flexDirection={"column"}
       alignItems={"center"}
       gap={2}
+      position={"sticky"}
+      top={"0"}
     >
       <Box
         width={"100%"}

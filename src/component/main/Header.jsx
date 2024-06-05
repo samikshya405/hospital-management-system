@@ -12,15 +12,16 @@ const Header = () => {
       justifyContent={"space-between"}
       px={2}
       alignItems={"center"}
-   
     >
       <LocalHospitalIcon sx={{ color: "red", fontSize: "40px" }} />
       <Box display={"flex"} alignItems={"center"} gap={2}>
         <Typography sx={{ fontWeight: "bold", color: "var(--dark)" }}>
           Samikshya
         </Typography>
-        <AccountBoxIcon sx={{ color: "var(--dark)", fontSize: "35px", cursor:"pointer" }} />
-        <LogoutIcon sx={{ color: "var(--dark)",cursor:"pointer"  }}  />
+        <AccountBoxIcon
+          sx={{ color: "var(--dark)", fontSize: "35px", cursor: "pointer" }}
+        />
+        <LogoutIcon sx={{ color: "var(--dark)", cursor: "pointer" }} />
       </Box>
     </Box>
   );

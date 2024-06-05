@@ -32,3 +32,20 @@
   justify-content: center;
   align-items: center;
 }
+.customInput{
+  height: 30px;
+  width: 100%;
+}
+.inputgrp{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* gap: 20px; */
+  /* background: red; */
+}
+.inputgrp label{
+  flex-basis: 40%;
+}
+.inputgrp input{
+  flex-basis: 60%;
+}
