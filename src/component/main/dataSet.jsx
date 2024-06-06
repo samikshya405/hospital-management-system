@@ -9,6 +9,7 @@ import inPatient from "../../assets/image/inPatient.png";
 import outPatient from "../../assets/image/outPatient.png";
 import patient from "../../assets/image/patient.png";
 import graph from "../../assets/image/graph.png";
+import staffs from '../../assets/image/staffs.png'
 
 import HomeIcon from "@mui/icons-material/Home";
 import AssignmentSharpIcon from "@mui/icons-material/AssignmentSharp";
@@ -87,6 +88,7 @@ export const data = [
     link: "/patients",
     icon: PeopleIcon,
   },
+  
   {
     department: "Statistic and Reports",
     img: graph,
