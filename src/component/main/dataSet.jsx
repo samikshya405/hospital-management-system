@@ -23,7 +23,7 @@ import DirectionsWalkIcon from "@mui/icons-material/DirectionsWalk";
 import PeopleIcon from "@mui/icons-material/People";
 import LeaderboardIcon from "@mui/icons-material/Leaderboard";
 import VaccinesIcon from "@mui/icons-material/Vaccines";
-import NotificationImportantIcon from '@mui/icons-material/NotificationImportant';
+import NotificationImportantIcon from "@mui/icons-material/NotificationImportant";
 
 export const data = [
   {
@@ -60,7 +60,7 @@ export const data = [
     department: "Electronic Medical Record",
     img: emr,
     link: "/emr",
-    icon: GrDocumentCloud ,
+    icon: GrDocumentCloud,
   },
   {
     department: "InPatient Management",
@@ -95,222 +95,45 @@ export const data = [
   },
 ];
 
-
-export const  PersonalDetails = [
-  {
-    name: "fname",
-    label: "First Name",
-    id: "fName",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "mName",
-    label: "Middle Name",
-    id: "mName",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "lName",
-    label: "Last Name",
-    id: "lName",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "dob",
-    label: "DOB",
-    id: "dob",
-    type: "date",
-    required: true,
-  },
-  {
-    name: "age",
-    label: "Age",
-    id: "age",
-    type: "text",
-    readOnly: "true",
-  },
-  {
-    name: "gender",
-    label: "Gender",
-    id: "gender",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "gender",
-    label: "Gender",
-    id: "gender",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "gender",
-    label: "Gender",
-    id: "gender",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "gender",
-    label: "Gender",
-    id: "gender",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "gender",
-    label: "Gender",
-    id: "gender",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "gender",
-    label: "Gender",
-    id: "gender",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "gender",
-    label: "Gender",
-    id: "gender",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "gender",
-    label: "Gender",
-    id: "gender",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "gender",
-    label: "Gender",
-    id: "gender",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "gender",
-    label: "Gender",
-    id: "gender",
-    type: "text",
-    required: true,
-  },
-];
 export const homeAddress = [
   {
-    name: "fname",
-    label: "First Name",
-    id: "fName",
+    name: "streetAddress",
+    label: "Street Address",
+    id: "streetName",
     type: "text",
     required: true,
   },
   {
-    name: "mName",
-    label: "Middle Name",
-    id: "mName",
+    name: "streetAddressLine2",
+    label: "Street Address",
+    id: "streetAddressLine2",
+    type: "text",
+    required: false,
+  },
+  {
+    name: "city",
+    label: "City",
+    id: "city",
     type: "text",
     required: true,
   },
   {
-    name: "lName",
-    label: "Last Name",
-    id: "lName",
+    name: "state",
+    label: "State/Province",
+    id: "state",
     type: "text",
     required: true,
   },
+
   {
-    name: "dob",
-    label: "DOB",
-    id: "dob",
-    type: "date",
-    required: true,
-  },
-  {
-    name: "age",
-    label: "Age",
-    id: "age",
-    type: "text",
-    readOnly: "true",
-  },
-  {
-    name: "gender",
-    label: "Gender",
-    id: "gender",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "gender",
-    label: "Gender",
-    id: "gender",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "gender",
-    label: "Gender",
-    id: "gender",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "gender",
-    label: "Gender",
-    id: "gender",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "gender",
-    label: "Gender",
-    id: "gender",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "gender",
-    label: "Gender",
-    id: "gender",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "gender",
-    label: "Gender",
-    id: "gender",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "gender",
-    label: "Gender",
-    id: "gender",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "gender",
-    label: "Gender",
-    id: "gender",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "gender",
-    label: "Gender",
-    id: "gender",
-    type: "text",
+    name: "postal",
+    label: "Postal/Zip Code",
+    id: "postal",
+    type: "number",
     required: true,
   },
 ];
-export const PayersInformation = [
+export const personalDetails = [
   {
     name: "fname",
     label: "First Name",
@@ -323,7 +146,7 @@ export const PayersInformation = [
     label: "Middle Name",
     id: "mName",
     type: "text",
-    required: true,
+    required: false,
   },
   {
     name: "lName",
@@ -332,6 +155,9 @@ export const PayersInformation = [
     type: "text",
     required: true,
   },
+
+ 
+   
   {
     name: "dob",
     label: "DOB",
@@ -340,80 +166,149 @@ export const PayersInformation = [
     required: true,
   },
   {
-    name: "age",
-    label: "Age",
-    id: "age",
-    type: "text",
-    readOnly: "true",
-  },
-  {
     name: "gender",
     label: "Gender",
     id: "gender",
-    type: "text",
+    type: "select",
     required: true,
+    option:[
+      {
+        name:"Male"
+      },
+      {
+        name:"Female"
+      },
+      {
+        name:"Other"
+      }
+    ]
   },
   {
-    name: "gender",
-    label: "Gender",
-    id: "gender",
-    type: "text",
+    name: "maritalStatus",
+    label: "Marital Status",
+    id: "maritalStatus",
+    type: "select",
     required: true,
+    option:[
+      {name:"Single"},
+      {
+        name:"Married"
+      },
+      {
+        name:"Divorcee"
+      }
+    ]
+  },
+  
+
+ 
+ 
+  {
+    name: "occupation",
+    label: "Occupation",
+    id: "occupation",
+    type: "text",
+    required: false,
   },
   {
-    name: "gender",
-    label: "Gender",
-    id: "gender",
+    name: "language",
+    label: "Language",
+    id: "language",
     type: "text",
-    required: true,
+    required: false,
   },
   {
-    name: "gender",
-    label: "Gender",
-    id: "gender",
-    type: "text",
-    required: true,
+    name:"religion",
+    label:"Religion",
+    id:"religion",
+    type:"text",
+    required:false
   },
   {
-    name: "gender",
-    label: "Gender",
-    id: "gender",
+    name: "nationality",
+    label: "Nationality",
+    id: "nationality",
     type: "text",
-    required: true,
+    required: false,
   },
   {
-    name: "gender",
-    label: "Gender",
-    id: "gender",
+    name: "email",
+    label: "Email",
+    id: "email",
     type: "text",
-    required: true,
+    required: false,
   },
-  {
-    name: "gender",
-    label: "Gender",
-    id: "gender",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "gender",
-    label: "Gender",
-    id: "gender",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "gender",
-    label: "Gender",
-    id: "gender",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "gender",
-    label: "Gender",
-    id: "gender",
-    type: "text",
-    required: true,
-  },
+  
 ];
+export const emergencyContact =[
+  {
+    name:"fName",
+    label: "First Name",
+    id: "fnameE",
+    type: "text",
+    required: false,
+
+  },
+  {
+    name:"lName",
+    label: "Last Name",
+    id: "lnameE",
+    type: "text",
+    required: false,
+
+  },
+  {
+    name:"relation",
+    label: "Relation",
+    id: "relation",
+    type: "text",
+    required: false,
+
+  },
+  {
+    name:"number",
+    label: "Phone Number",
+    id: "numberE",
+    type: "number",
+    required: false,
+
+  },
+  {
+    name: "streetAddress",
+    label: "Street Address",
+    id: "streetName",
+    type: "text",
+    required: true,
+  },
+  {
+    name: "streetAddressLine2",
+    label: "Street Address line 2",
+    id: "streetAddressLine2",
+    type: "text",
+    required: false,
+  },
+  {
+    name: "city",
+    label: "City",
+    id: "city",
+    type: "text",
+    required: true,
+  },
+  {
+    name: "state",
+    label: "State/Province",
+    id: "state",
+    type: "text",
+    required: true,
+  },
+
+  {
+    name: "postal",
+    label: "Postal/Zip Code",
+    id: "postal",
+    type: "number",
+    required: true,
+  },
+
+]
+

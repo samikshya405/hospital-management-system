@@ -2,54 +2,85 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 const formType = [
   {
-    name: "Personal Details",
+    name: "Personal",
   },
   {
-    name: "Home Address",
+    name: "Home",
   },
   {
-    name: "Next of Kin",
+    name: "Emergency",
   },
   {
-    name: "Payers Information",
+    name: "Confirm",
   },
 ];
 
-const ProgressBar = ({activeForm, setActiveForm}) => {
-    const handleBreadCrumb=(i)=>{
-        
-        setActiveForm(i)
-
-    }
+const ProgressBar = ({ activeForm, setActiveForm }) => {
+  const handleBreadCrumb = (i) => {
+    setActiveForm(i);
+  };
   return (
-    <Box py={2} sx={{ display: "flex", alignItems: "center", justifyContent:"center" }}>
+  
+    <Box
+      py={2}
+      sx={{
+        display: "flex",
+       
+        width: "100%",
+       
+        
+      }}
+    >
       {formType.map((item, i) => {
         return (
-          <Box key={i} sx={{ display: "flex", alignItems: "center" }}>
+          <Box
+            key={i}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              position: "relative",
+        
+              width: i!==(formType.length-1) ? "100%" : "40px"
+            }}
+          >
             <Box
               sx={{
                 width: "40px",
                 height: "40px",
                 borderRadius: "50%",
-                bgcolor: i<=activeForm ? "blue":"grey",
-                color: i<=activeForm ? "white":"black",
+                bgcolor: i <= activeForm ? "blue" : "grey",
+
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                cursor:"pointer",
-                
+                cursor: "pointer",
               }}
-              onClick={()=>handleBreadCrumb(i)}
+              onClick={() => handleBreadCrumb(i)}
             >
-              <Typography fontWeight={"bold"}>{i + 1}</Typography>
+              <Typography
+                fontWeight={"bold"}
+                sx={{ color: i <= activeForm ? "white" : "black" }}
+              >
+                {i + 1}
+              </Typography>
+              <Typography position={"absolute"} top={"50px"}>
+                {item.name}
+              </Typography>
             </Box>
-            {
-                i!==(formType.length-1) && <Box width={"100px"} sx={{ height: "5px", bgcolor: i<activeForm ? "blue":"grey"}}></Box>
-            }
+            {i !== formType.length - 1 && (
+              <Box
+                sx={{
+                  height: "5px",
+                  bgcolor: i < activeForm ? "blue" : "grey",
+                  width: "calc(100% - 40px)",
+                }}
+              ></Box>
+            )}
           </Box>
         );
       })}
     </Box>
+  
   );
 };
 

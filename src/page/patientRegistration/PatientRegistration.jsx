@@ -19,17 +19,20 @@ const formList = [PersonalDetailsForm, HomeAddress, EmergencyContact, Confirm];
 
 const PatientRegistration = () => {
   const [activeForm, setActiveForm] = useState(0);
-  
+
   const ActiveFormComponent = formList[activeForm];
   return (
     <MainLayout title={"Patient Registration"}>
       <Box
+        width={"80%"}
+        margin={"0 auto"}
         sx={{
           display: "flex",
           flexDirection: "column",
         }}
       >
         <ProgressBar activeForm={activeForm} setActiveForm={setActiveForm} />
+        
 
         <ActiveFormComponent
           activeForm={activeForm}

@@ -37,10 +37,9 @@ import {
       <Box
         component={"form"}
         onSubmit={handleNext}
-        width={"80%"}
-        margin={"0 auto"}
+       
       >
-        <Box p={2}>
+        <Box py={2}>
           <Typography sx={{ fontWeight: "bold", fontSize: "20px", my: 2 }}>
             Emergency Contact
           </Typography>

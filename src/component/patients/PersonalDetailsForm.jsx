@@ -36,9 +36,9 @@ const PersonalDetailsForm = ({activeForm, setActiveForm}) => {
 
     }
   return (
-    <Box component={"form"} onSubmit={handleNext} width={"80%"} margin={"0 auto"}>
+    <Box component={"form"} onSubmit={handleNext} >
         
-    <Box p={2}>
+    <Box py={2}>
         <Typography sx={{fontWeight:"bold", fontSize:"20px", my:2}}>Personal Details</Typography>
       <Grid container columnSpacing={4} rowSpacing={1}>
         {personalDetails.map(({ label, ...input }, i) => {

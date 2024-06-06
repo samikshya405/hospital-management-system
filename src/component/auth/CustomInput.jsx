@@ -28,8 +28,9 @@ export const CustomInput = ({ ...input }) => {
   return (
     <>
       <ThemeProvider theme={theme}>
+        
         <TextField
-          margin="normal"
+          margin= {input.label && "normal"}
           required
           fullWidth
           {...input}
