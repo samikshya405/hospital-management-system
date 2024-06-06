@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MainLayout from "../../component/main/MainLayout";
 import {
   Box,
@@ -8,151 +8,33 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { green } from "@mui/material/colors";
-import {
-  PayersInformation,
-  PersonalDetails,
-  homeAddress,
-} from "../../component/main/dataSet";
+
+import ProgressBar from "./ProgressBar";
+import PersonalDetailsForm from "../../component/patients/PersonalDetailsForm";
+import HomeAddress from "../../component/patients/HomeAddress";
+import EmergencyContact from "../../component/patients/EmergencyContact";
+import Confirm from "../../component/patients/Confirm";
+
+const formList = [PersonalDetailsForm, HomeAddress, EmergencyContact, Confirm];
 
 const PatientRegistration = () => {
+  const [activeForm, setActiveForm] = useState(0);
+  
+  const ActiveFormComponent = formList[activeForm];
   return (
     <MainLayout title={"Patient Registration"}>
-      <Box p={1}>
-        <Typography pt={3}>Personal Details</Typography>
-        <hr />
-        <Grid
-          container
-          component={"form"}
-          pt={1}
-          columnSpacing={5}
-          rowSpacing={1}
-        >
-          {PersonalDetails.map((input, i) => {
-            return (
-              <Grid
-                key={i}
-                item
-                xs={12}
-                sm={6}
-                md={4}
-                lg={4}
-                className="inputgrp"
-              >
-                {input.required ? (
-                  <InputLabel>{input.label}*:</InputLabel>
-                ) : (
-                  <InputLabel>{input.label}:</InputLabel>
-                )}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <ProgressBar activeForm={activeForm} setActiveForm={setActiveForm} />
 
-                <input className="customInput" type="text" />
-              </Grid>
-            );
-          })}
-        </Grid>
-
-        <Typography pt={3}>Home Address</Typography>
-        <hr />
-        <Grid
-          container
-          component={"form"}
-          pt={1}
-          columnSpacing={5}
-          rowSpacing={1}
-        >
-          {homeAddress.map((input, i) => {
-            return (
-              <Grid
-                key={i}
-                item
-                xs={12}
-                sm={6}
-                md={4}
-                lg={4}
-                className="inputgrp"
-              >
-                {input.required ? (
-                  <InputLabel>{input.label}*:</InputLabel>
-                ) : (
-                  <InputLabel>{input.label}:</InputLabel>
-                )}
-
-                <input className="customInput" type="text" />
-              </Grid>
-            );
-          })}
-        </Grid>
-        <Typography pt={3}>Payers Information</Typography>
-        <hr />
-        <Grid
-          container
-          component={"form"}
-          pt={1}
-          columnSpacing={5}
-          rowSpacing={1}
-        >
-          {PayersInformation.map((input, i) => {
-            return (
-              <Grid
-                key={i}
-                item
-                xs={12}
-                sm={6}
-                md={4}
-                lg={4}
-                className="inputgrp"
-              >
-                {input.required ? (
-                  <InputLabel>{input.label}*:</InputLabel>
-                ) : (
-                  <InputLabel>{input.label}:</InputLabel>
-                )}
-
-                <input className="customInput" type="text" />
-              </Grid>
-            );
-          })}
-        </Grid>
-        <Typography pt={3}>Payers Information</Typography>
-        <hr />
-        <Grid
-          container
-          component={"form"}
-          pt={1}
-          columnSpacing={5}
-          rowSpacing={1}
-        >
-          {PayersInformation.map((input, i) => {
-            return (
-              <Grid
-                key={i}
-                item
-                xs={12}
-                sm={6}
-                md={4}
-                lg={4}
-                className="inputgrp"
-              >
-                {input.required ? (
-                  <InputLabel>{input.label}*:</InputLabel>
-                ) : (
-                  <InputLabel>{input.label}:</InputLabel>
-                )}
-
-                <input className="customInput" type="text" />
-              </Grid>
-            );
-          })}
-        </Grid>
-        <Box textAlign={"right"}>
-          <Button
-            variant="contained"
-            sx={{ m: 5, width: "200px" }}
-            style={{ background: "var(--primary)" }}
-          >
-            Register
-          </Button>
-        </Box>
+        <ActiveFormComponent
+          activeForm={activeForm}
+          setActiveForm={setActiveForm}
+        />
       </Box>
     </MainLayout>
   );
