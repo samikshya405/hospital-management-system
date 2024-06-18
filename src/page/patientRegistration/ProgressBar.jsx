@@ -59,7 +59,7 @@ const ProgressBar = ({ activeForm, setActiveForm }) => {
             >
               <Typography
                 fontWeight={"bold"}
-                sx={{ color: i <= activeForm ? "white" : "black" }}
+                sx={{ color: 'white' }}
               >
                 {i + 1}
               </Typography>
