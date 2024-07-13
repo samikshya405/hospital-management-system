@@ -76,6 +76,7 @@ const SignUp = () => {
     confirmPassword: false,
   });
   const [isLoading, setIsLoading] = useState(false);
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "password" || name === "confirmPassword") {

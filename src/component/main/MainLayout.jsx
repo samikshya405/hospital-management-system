@@ -13,20 +13,22 @@ const MainLayout = ({ title, children }) => {
       <Box minHeight={"94vh"} display={"flex"}>
         <Sidebar title={title} />
         <Box width={"95vw"}>
-          <Box
-            height={"46px"}
-            bgcolor={"var(--secondary)"}
-            width={"100%"}
-            display={"flex"}
-            alignItems={"center"}
-          >
-            <Typography
-              paddingLeft={1}
-              sx={{ fontWeight: "bold", color: "var(--dark)" }}
+          {title && (
+            <Box
+              height={"46px"}
+              bgcolor={"var(--secondary)"}
+              width={"100%"}
+              display={"flex"}
+              alignItems={"center"}
             >
-              {title}
-            </Typography>
-          </Box>
+              <Typography
+                paddingLeft={1}
+                sx={{ fontWeight: "bold", color: "var(--dark)" }}
+              >
+                {title}
+              </Typography>
+            </Box>
+          )}
           <Box minHeight={"calc(94vh - 92px)"} sx={{ margin: "0 8px" }}>
             {children}
           </Box>

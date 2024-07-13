@@ -9,7 +9,8 @@ import inPatient from "../../assets/image/inPatient.png";
 import outPatient from "../../assets/image/outPatient.png";
 import patient from "../../assets/image/patient.png";
 import graph from "../../assets/image/graph.png";
-import staffs from '../../assets/image/staffs.png'
+import staffs from "../../assets/image/staffs.png";
+import setting from '../../assets/image/setting.png'
 
 import HomeIcon from "@mui/icons-material/Home";
 import AssignmentSharpIcon from "@mui/icons-material/AssignmentSharp";
@@ -25,6 +26,7 @@ import PeopleIcon from "@mui/icons-material/People";
 import LeaderboardIcon from "@mui/icons-material/Leaderboard";
 import VaccinesIcon from "@mui/icons-material/Vaccines";
 import NotificationImportantIcon from "@mui/icons-material/NotificationImportant";
+import SettingsIcon from '@mui/icons-material/Settings';
 
 export const data = [
   {
@@ -51,30 +53,30 @@ export const data = [
     link: "/doctors",
     icon: FaUserDoctor,
   },
-  {
-    department: "Emergency",
-    img: emergency,
-    link: "/emergency",
-    icon: NotificationImportantIcon,
-  },
-  {
-    department: "Electronic Medical Record",
-    img: emr,
-    link: "/emr",
-    icon: GrDocumentCloud,
-  },
-  {
-    department: "InPatient Management",
-    img: inPatient,
-    link: "/inPatient",
-    icon: AirlineSeatFlatIcon,
-  },
-  {
-    department: "OutPatient Management",
-    img: outPatient,
-    link: "/outPatient",
-    icon: DirectionsWalkIcon,
-  },
+  // {
+  //   department: "Emergency",
+  //   img: emergency,
+  //   link: "/emergency",
+  //   icon: NotificationImportantIcon,
+  // },
+  // {
+  //   department: "Electronic Medical Record",
+  //   img: emr,
+  //   link: "/emr",
+  //   icon: GrDocumentCloud,
+  // },
+  // {
+  //   department: "InPatient Management",
+  //   img: inPatient,
+  //   link: "/inPatient",
+  //   icon: AirlineSeatFlatIcon,
+  // },
+  // {
+  //   department: "OutPatient Management",
+  //   img: outPatient,
+  //   link: "/outPatient",
+  //   icon: DirectionsWalkIcon,
+  // },
 
   {
     department: "Billing and Payment",
@@ -88,13 +90,19 @@ export const data = [
     link: "/patients",
     icon: PeopleIcon,
   },
-  
+
   {
     department: "Statistic and Reports",
     img: graph,
     link: "/statistic",
     icon: LeaderboardIcon,
   },
+  {
+    department:"Settings",
+    img:setting,
+    link:'/setting',
+    icon:SettingsIcon
+  }
 ];
 
 export const homeAddress = [
@@ -158,8 +166,6 @@ export const personalDetails = [
     required: true,
   },
 
- 
-   
   {
     name: "dob",
     label: "DOB",
@@ -173,17 +179,17 @@ export const personalDetails = [
     id: "gender",
     type: "select",
     required: true,
-    option:[
+    option: [
       {
-        name:"Male"
+        name: "Male",
       },
       {
-        name:"Female"
+        name: "Female",
       },
       {
-        name:"Other"
-      }
-    ]
+        name: "Other",
+      },
+    ],
   },
   {
     name: "maritalStatus",
@@ -191,20 +197,17 @@ export const personalDetails = [
     id: "maritalStatus",
     type: "select",
     required: true,
-    option:[
-      {name:"Single"},
+    option: [
+      { name: "Single" },
       {
-        name:"Married"
+        name: "Married",
       },
       {
-        name:"Divorcee"
-      }
-    ]
+        name: "Divorcee",
+      },
+    ],
   },
-  
 
- 
- 
   {
     name: "occupation",
     label: "Occupation",
@@ -220,11 +223,11 @@ export const personalDetails = [
     required: false,
   },
   {
-    name:"religion",
-    label:"Religion",
-    id:"religion",
-    type:"text",
-    required:false
+    name: "religion",
+    label: "Religion",
+    id: "religion",
+    type: "text",
+    required: false,
   },
   {
     name: "nationality",
@@ -240,40 +243,35 @@ export const personalDetails = [
     type: "text",
     required: false,
   },
-  
 ];
-export const emergencyContact =[
+export const emergencyContact = [
   {
-    name:"fName",
+    name: "fName",
     label: "First Name",
     id: "fnameE",
     type: "text",
     required: false,
-
   },
   {
-    name:"lName",
+    name: "lName",
     label: "Last Name",
     id: "lnameE",
     type: "text",
     required: false,
-
   },
   {
-    name:"relation",
+    name: "relation",
     label: "Relation",
     id: "relation",
     type: "text",
     required: false,
-
   },
   {
-    name:"number",
+    name: "number",
     label: "Phone Number",
     id: "numberE",
     type: "number",
     required: false,
-
   },
   {
     name: "streetAddress",
@@ -311,6 +309,112 @@ export const emergencyContact =[
     type: "number",
     required: true,
   },
+];
 
-]
+export const staffDetails = [
+  {
+    name: "fname",
+    label: "First Name",
+    id: "fName",
+    type: "text",
+    required: true,
+  },
+  {
+    name: "mName",
+    label: "Middle Name",
+    id: "mName",
+    type: "text",
+    required: false,
+  },
+  {
+    name: "lName",
+    label: "Last Name",
+    id: "lName",
+    type: "text",
+    required: true,
+  },
 
+  {
+    name: "dob",
+    label: "DOB",
+    id: "dob",
+    type: "date",
+    required: true,
+  },
+  {
+    name: "gender",
+    label: "Gender",
+    id: "gender",
+    type: "select",
+    required: true,
+    option: [
+      {
+        name: "Male",
+      },
+      {
+        name: "Female",
+      },
+      {
+        name: "Other",
+      },
+    ],
+  },
+
+  {
+    name: "email",
+    label: "Email",
+    id: "email",
+    type: "text",
+    required: false,
+  },
+  {
+    name: "department",
+    label: "Department",
+    id: "department",
+    type: "select",
+    required: true,
+    option: [
+      {
+        name: "Receptionist",
+      },
+      {
+        name: "Doctor",
+      },
+      {
+        name: "Nurse",
+      },
+    ],
+  },
+  {
+    name: "jobTitle",
+    label: "Job Title",
+    id: "jobTitle",
+    type: "text",
+    required: true,
+  },
+  {
+    name: "startDate",
+    label: "Start Date",
+    id: "startDate",
+    type: "date",
+    required: true,
+  },
+  {
+    name: "employmentType",
+    label: "Employment Type",
+    id: "employmentType",
+    type: "select",
+    required: true,
+    option: [
+      {
+        name: "Part time",
+      },
+      {
+        name: "Full Time",
+      },
+      {
+        name: "Casual",
+      },
+    ],
+  },
+];

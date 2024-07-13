@@ -17,26 +17,144 @@ import Statistics from "./page/statistics/Statistics";
 import Emergency from "./page/emergency/Emergency";
 import Staffs from "./page/staffs/Staffs";
 import Rosters from "./page/rosters/Rosters";
+import PublicRoute from "./component/protectedRoute/PublicRoute";
+import ProtectedRoutes from "./component/protectedRoute/ProtectedRoutes";
+import AddStaff from "./component/staff/AddStaff";
+import Setting from "./page/setting/Setting";
 
 const App = () => {
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<SignUp />} />
-      <Route path="/" element={<Dashboard />} />
-      <Route path="/patientRegistration" element={<PatientRegistration/>}/>
-      <Route path="/appointment" element={<Appointment/>}/>
-      <Route path="/billing" element={<Billing/>}/>
-      <Route path="/clinical" element={<ClinicalManagement/>}/>
-      <Route path="/emr" element={<ElectronicMedicalRecord/>}/>
-      <Route path="/doctors" element={<DoctorInformation/>}/>
-      <Route path="/inPatient" element={<InPatient/>}/>
-      <Route path="/outPatient" element={<OutPatient/>}/>
-      <Route path="/patients" element={<Patients/>}/>
-      <Route path="/statistic" element={<Statistics/>}/>
-      <Route path="/emergency" element={<Emergency/>}/>
-     <Route path='/staffs' element={<Staffs/>}/>
-     <Route path="/rosters" element={<Rosters/>}/>
+      <Route
+        path="/login"
+        element={
+          <PublicRoute>
+            <Login />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/signup"
+        element={
+          <PublicRoute>
+            <SignUp />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/"
+        element={
+          <ProtectedRoutes>
+            <Dashboard />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/patientRegistration"
+        element={
+          <ProtectedRoutes>
+            <PatientRegistration />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/appointment"
+        element={
+          <ProtectedRoutes>
+            <Appointment />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/billing"
+        element={
+          <ProtectedRoutes>
+            <Billing />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/clinical"
+        element={
+          <ProtectedRoutes>
+            <ClinicalManagement />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/emr"
+        element={
+          <ProtectedRoutes>
+            <ElectronicMedicalRecord />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/doctors"
+        element={
+          <ProtectedRoutes>
+            <DoctorInformation />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/inPatient"
+        element={
+          <ProtectedRoutes>
+            <InPatient />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/outPatient"
+        element={
+          <ProtectedRoutes>
+            <OutPatient />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/patients"
+        element={
+          <ProtectedRoutes>
+            <Patients />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/statistic"
+        element={
+          <ProtectedRoutes>
+            <Statistics />
+          </ProtectedRoutes>
+        }
+      />
+      <Route path="/emergency" element={<Emergency />} />
+      <Route
+        path="/staffs"
+        element={
+          <ProtectedRoutes>
+            <Staffs />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/rosters"
+        element={
+          <ProtectedRoutes>
+            <Rosters />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/addStaff"
+        element={
+          <ProtectedRoutes>
+            <AddStaff />
+          </ProtectedRoutes>
+        }
+      />
+      <Route path="/setting" element={<ProtectedRoutes><Setting/></ProtectedRoutes>}/>
     </Routes>
   );
 };
