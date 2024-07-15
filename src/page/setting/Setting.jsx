@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MainLayout from "../../component/main/MainLayout";
-import { Box, Button, Modal, Paper, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
-import { CustomInput } from "../../component/auth/CustomInput";
+import {
+  Box,
+  Button,
+  IconButton,
+  Modal,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+
+import { postDepartment, getDepartmentList } from "../../utils/axiosHelper";
 const style = {
   position: "absolute",
   top: "50%",
@@ -19,6 +29,29 @@ const Setting = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [department, setDepartment] = useState({});
+  const [departmentList, setDepartmentList] = useState([]);
+  const handleChange = (e) => {
+    setDepartment({ department: e.target.value });
+  };
+  const handleAddDepartment = async () => {
+    const response = await postDepartment(department);
+    if (response.status === "success") {
+      console.log(response.message);
+    } else {
+      console.error("Failed to add department:", response.message);
+    }
+    getDepartment();
+    setOpen(false);
+  };
+  const getDepartment = async () => {
+    const response = await getDepartmentList();
+    setDepartmentList(response.department);
+    console.log(response.department);
+  };
+  useEffect(() => {
+    getDepartment();
+  }, []);
   return (
     <MainLayout title={"Setting"}>
       <Box textAlign={"end"}>
@@ -42,13 +75,13 @@ const Setting = () => {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Add New Department
           </Typography>
-          <CustomInput />
+          <TextField sx={{ width: "100%" }} onChange={handleChange} />
           <Box textAlign={"end"}>
             <Button
               variant="contained"
               sx={{ mt: 3, mb: 2, paddingX: 5 }}
               style={{ background: "var(--primary)" }}
-              onClick={handleClose}
+              onClick={handleAddDepartment}
             >
               Add
             </Button>
@@ -56,9 +89,32 @@ const Setting = () => {
         </Box>
       </Modal>
       <Box>
-        <Paper sx={{ p: 2, m: 1 }}>Doctor</Paper>
-        <Paper sx={{ p: 2, m: 1 }}>Receptionist</Paper>
-        <Paper sx={{ p: 2, m: 1 }}>Nurse</Paper>
+        {departmentList.map((item, i) => {
+          return (
+            <Paper
+              key={item._id}
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                textTransform:"capitalize",
+                p: 2,
+                m: 1,
+              }}
+            >
+              <Box>{item.department}</Box>
+              <Box>
+                <IconButton>
+                  <EditIcon sx={{ color: "blue" }} />
+                </IconButton>
+                <IconButton>
+                  <DeleteIcon sx={{ color: "red" }} />
+                </IconButton>
+              </Box>
+            </Paper>
+          );
+        })}
+
+        
       </Box>
     </MainLayout>
   );
