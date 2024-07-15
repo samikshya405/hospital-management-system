@@ -17,6 +17,9 @@ import Statistics from "./page/statistics/Statistics";
 import Emergency from "./page/emergency/Emergency";
 import Staffs from "./page/staffs/Staffs";
 import Rosters from "./page/rosters/Rosters";
+import DoctorProfile from "./page/doctors/DoctorProfile";
+import PatientInformation from "./page/patients/PatientInformation";
+import PatientProfile from "./page/patients/PatientProfile";
 
 const App = () => {
   return (
@@ -32,11 +35,14 @@ const App = () => {
       <Route path="/doctors" element={<DoctorInformation/>}/>
       <Route path="/inPatient" element={<InPatient/>}/>
       <Route path="/outPatient" element={<OutPatient/>}/>
-      <Route path="/patients" element={<Patients/>}/>
+      {/* <Route path="/patients" element={<Patients/>}/> */}
       <Route path="/statistic" element={<Statistics/>}/>
       <Route path="/emergency" element={<Emergency/>}/>
      <Route path='/staffs' element={<Staffs/>}/>
      <Route path="/rosters" element={<Rosters/>}/>
+     <Route path="/doctor/:id" element={<DoctorProfile />} />
+     <Route path="/patient/:id" element={<PatientProfile />} />
+     <Route path="/patients" element={<PatientInformation />} />
     </Routes>
   );
 };

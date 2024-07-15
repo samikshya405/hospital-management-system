@@ -51,30 +51,30 @@ export const data = [
     link: "/doctors",
     icon: FaUserDoctor,
   },
-  {
-    department: "Emergency",
-    img: emergency,
-    link: "/emergency",
-    icon: NotificationImportantIcon,
-  },
-  {
-    department: "Electronic Medical Record",
-    img: emr,
-    link: "/emr",
-    icon: GrDocumentCloud,
-  },
-  {
-    department: "InPatient Management",
-    img: inPatient,
-    link: "/inPatient",
-    icon: AirlineSeatFlatIcon,
-  },
-  {
-    department: "OutPatient Management",
-    img: outPatient,
-    link: "/outPatient",
-    icon: DirectionsWalkIcon,
-  },
+  // {
+  //   department: "Emergency",
+  //   img: emergency,
+  //   link: "/emergency",
+  //   icon: NotificationImportantIcon,
+  // },
+  // {
+  //   department: "Electronic Medical Record",
+  //   img: emr,
+  //   link: "/emr",
+  //   icon: GrDocumentCloud,
+  // },
+  // {
+  //   department: "InPatient Management",
+  //   img: inPatient,
+  //   link: "/inPatient",
+  //   icon: AirlineSeatFlatIcon,
+  // },
+  // {
+  //   department: "OutPatient Management",
+  //   img: outPatient,
+  //   link: "/outPatient",
+  //   icon: DirectionsWalkIcon,
+  // },
 
   {
     department: "Billing and Payment",
