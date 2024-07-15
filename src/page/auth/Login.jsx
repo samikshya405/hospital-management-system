@@ -15,6 +15,8 @@ import { CustomInput, CustomSelect } from "../../component/auth/CustomInput";
 import { fetchUserInfo, userLogin } from "../../utils/axiosHelper";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+// import { hideLoading, showLoading } from "../../redux/features/alertSlice";
 const inputs = [
   {
     name: "department",
@@ -57,6 +59,7 @@ const login = () => {
   const [formData, setformData] = useState(initialState);
   const navigate = useNavigate();
   const [isInValid, setIsInvalid] = useState(false);
+  const dispatch = useDispatch()
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -67,6 +70,7 @@ const login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+   
     const loginPromise = userLogin(formData);
     toast.promise(loginPromise, {
       pending: "In Progress...",
@@ -76,6 +80,8 @@ const login = () => {
     if (result.status === "success") {
       navigate("/");
     }
+    
+
     const {status,tokens} = result
     status === "success" ? navigate("/") : setIsInvalid(true);
     if(status === "success"){

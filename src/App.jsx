@@ -17,13 +17,21 @@ import Statistics from "./page/statistics/Statistics";
 import Emergency from "./page/emergency/Emergency";
 import Staffs from "./page/staffs/Staffs";
 import Rosters from "./page/rosters/Rosters";
+<<<<<<< HEAD
 import DoctorProfile from "./page/doctors/DoctorProfile";
 import PatientInformation from "./page/patients/PatientInformation";
 import PatientProfile from "./page/patients/PatientProfile";
+=======
+import PublicRoute from "./component/protectedRoute/PublicRoute";
+import ProtectedRoutes from "./component/protectedRoute/ProtectedRoutes";
+import AddStaff from "./component/staff/AddStaff";
+import Setting from "./page/setting/Setting";
+>>>>>>> aba68962e89c644385e601a220dc78aeec341463
 
 const App = () => {
   return (
     <Routes>
+<<<<<<< HEAD
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/" element={<Dashboard />} />
@@ -43,6 +51,138 @@ const App = () => {
      <Route path="/doctor/:id" element={<DoctorProfile />} />
      <Route path="/patient/:id" element={<PatientProfile />} />
      <Route path="/patients" element={<PatientInformation />} />
+=======
+      <Route
+        path="/login"
+        element={
+          <PublicRoute>
+            <Login />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/signup"
+        element={
+          <PublicRoute>
+            <SignUp />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/"
+        element={
+          <ProtectedRoutes>
+            <Dashboard />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/patientRegistration"
+        element={
+          <ProtectedRoutes>
+            <PatientRegistration />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/appointment"
+        element={
+          <ProtectedRoutes>
+            <Appointment />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/billing"
+        element={
+          <ProtectedRoutes>
+            <Billing />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/clinical"
+        element={
+          <ProtectedRoutes>
+            <ClinicalManagement />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/emr"
+        element={
+          <ProtectedRoutes>
+            <ElectronicMedicalRecord />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/doctors"
+        element={
+          <ProtectedRoutes>
+            <DoctorInformation />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/inPatient"
+        element={
+          <ProtectedRoutes>
+            <InPatient />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/outPatient"
+        element={
+          <ProtectedRoutes>
+            <OutPatient />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/patients"
+        element={
+          <ProtectedRoutes>
+            <Patients />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/statistic"
+        element={
+          <ProtectedRoutes>
+            <Statistics />
+          </ProtectedRoutes>
+        }
+      />
+      <Route path="/emergency" element={<Emergency />} />
+      <Route
+        path="/staffs"
+        element={
+          <ProtectedRoutes>
+            <Staffs />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/rosters"
+        element={
+          <ProtectedRoutes>
+            <Rosters />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/addStaff"
+        element={
+          <ProtectedRoutes>
+            <AddStaff />
+          </ProtectedRoutes>
+        }
+      />
+      <Route path="/setting" element={<ProtectedRoutes><Setting/></ProtectedRoutes>}/>
+>>>>>>> aba68962e89c644385e601a220dc78aeec341463
     </Routes>
   );
 };

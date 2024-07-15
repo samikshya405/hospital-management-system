@@ -32,7 +32,6 @@ const PatientRegistration = () => {
         }}
       >
         <ProgressBar activeForm={activeForm} setActiveForm={setActiveForm} />
-        
 
         <ActiveFormComponent
           activeForm={activeForm}
