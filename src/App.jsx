@@ -17,41 +17,15 @@ import Statistics from "./page/statistics/Statistics";
 import Emergency from "./page/emergency/Emergency";
 import Staffs from "./page/staffs/Staffs";
 import Rosters from "./page/rosters/Rosters";
-<<<<<<< HEAD
-import DoctorProfile from "./page/doctors/DoctorProfile";
-import PatientInformation from "./page/patients/PatientInformation";
-import PatientProfile from "./page/patients/PatientProfile";
-=======
 import PublicRoute from "./component/protectedRoute/PublicRoute";
 import ProtectedRoutes from "./component/protectedRoute/ProtectedRoutes";
 import AddStaff from "./component/staff/AddStaff";
 import Setting from "./page/setting/Setting";
->>>>>>> aba68962e89c644385e601a220dc78aeec341463
+import PatientProfile from "./page/patients/PatientProfile";
 
 const App = () => {
   return (
     <Routes>
-<<<<<<< HEAD
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<SignUp />} />
-      <Route path="/" element={<Dashboard />} />
-      <Route path="/patientRegistration" element={<PatientRegistration/>}/>
-      <Route path="/appointment" element={<Appointment/>}/>
-      <Route path="/billing" element={<Billing/>}/>
-      <Route path="/clinical" element={<ClinicalManagement/>}/>
-      <Route path="/emr" element={<ElectronicMedicalRecord/>}/>
-      <Route path="/doctors" element={<DoctorInformation/>}/>
-      <Route path="/inPatient" element={<InPatient/>}/>
-      <Route path="/outPatient" element={<OutPatient/>}/>
-      {/* <Route path="/patients" element={<Patients/>}/> */}
-      <Route path="/statistic" element={<Statistics/>}/>
-      <Route path="/emergency" element={<Emergency/>}/>
-     <Route path='/staffs' element={<Staffs/>}/>
-     <Route path="/rosters" element={<Rosters/>}/>
-     <Route path="/doctor/:id" element={<DoctorProfile />} />
-     <Route path="/patient/:id" element={<PatientProfile />} />
-     <Route path="/patients" element={<PatientInformation />} />
-=======
       <Route
         path="/login"
         element={
@@ -182,7 +156,7 @@ const App = () => {
         }
       />
       <Route path="/setting" element={<ProtectedRoutes><Setting/></ProtectedRoutes>}/>
->>>>>>> aba68962e89c644385e601a220dc78aeec341463
+      <Route path='/patient/:id' element={<ProtectedRoutes><PatientProfile/></ProtectedRoutes>}/>
     </Routes>
   );
 };
