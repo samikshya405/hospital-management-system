@@ -23,7 +23,7 @@ const MainLayout = ({ title, children }) => {
             >
               <Typography
                 paddingLeft={1}
-                sx={{ fontWeight: "bold", color: "var(--dark)" }}
+                sx={{ fontWeight: "bold", color: "var(--dark)", textTransform:"capitalize" }}
               >
                 {title}
               </Typography>

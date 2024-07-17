@@ -235,10 +235,11 @@ const EmployeeOnboardingForm = () => {
             );
           })}
         </Grid>
+        <Typography sx={{color:"orange", py:2}}> Upon creating employye  an email will be sent to them with login details and temporary password.</Typography>
         <Box textAlign={"end"}>
           <Button
             variant="contained"
-            sx={{ mt: 3, mb: 2, paddingX: 5 }}
+            sx={{ mt: 1, mb: 2, paddingX: 5 }}
             style={{ background: "var(--primary)" }}
             type="submit"
           >

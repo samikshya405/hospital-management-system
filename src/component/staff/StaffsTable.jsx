@@ -7,105 +7,106 @@ import {
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
+  Typography,
 } from "@mui/material";
-import React from "react";
+import { toast } from "react-toastify";
+import React, { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { deleteStaff, getAllStaff } from "../../utils/axiosHelper";
+import { Link } from "react-router-dom";
 
 const StaffsTable = () => {
+  const [employeeList, setEmployeeList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(7);
+
+  const getAllEmployee = async () => {
+    setIsLoading(true);
+    const response = await getAllStaff();
+    setIsLoading(false);
+    setEmployeeList(response.employeeList);
+  };
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const handleDelete = async (id) => {
+    const resposne = await deleteStaff(id);
+    if (resposne.status === "success") {
+      toast("employee deleted successfully");
+      getAllEmployee();
+    } else {
+      toast.error("Not able to Delete. Something went wrong!");
+    }
+  };
+  useEffect(() => {
+    getAllEmployee();
+  }, []);
   return (
     <>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }}>
-          <TableHead>
-            <TableRow>
-              <TableCell sx={{ fontWeight: "bold" }}>Name</TableCell>
-              <TableCell sx={{ fontWeight: "bold" }}>Department</TableCell>
-              <TableCell sx={{ fontWeight: "bold" }}>Email</TableCell>
-              <TableCell sx={{ fontWeight: "bold" }}>Phone</TableCell>
-              <TableCell sx={{ fontWeight: "bold" }}>Action</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            <TableRow>
-              <TableCell>Samikshya kharel</TableCell>
-              <TableCell>Receptionist</TableCell>
-              <TableCell>abc@gmail.com</TableCell>
-              <TableCell>4657845876</TableCell>
-              <TableCell>
-                <IconButton>
-                  {" "}
-                  <EditIcon sx={{ color: "blue" }} />
-                </IconButton>
-                <IconButton>
-                  <DeleteIcon sx={{ color: "red" }} />
-                </IconButton>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Samikshya kharel</TableCell>
-              <TableCell>Receptionist</TableCell>
-              <TableCell>abc@gmail.com</TableCell>
-              <TableCell>4657845876</TableCell>
-              <TableCell>
-                <IconButton>
-                  {" "}
-                  <EditIcon sx={{ color: "blue" }} />
-                </IconButton>
-                <IconButton>
-                  <DeleteIcon sx={{ color: "red" }} />
-                </IconButton>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Samikshya kharel</TableCell>
-              <TableCell>Receptionist</TableCell>
-              <TableCell>abc@gmail.com</TableCell>
-              <TableCell>4657845876</TableCell>
-              <TableCell>
-                <IconButton>
-                  {" "}
-                  <EditIcon sx={{ color: "blue" }} />
-                </IconButton>
-                <IconButton>
-                  <DeleteIcon sx={{ color: "red" }} />
-                </IconButton>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Samikshya kharel</TableCell>
-              <TableCell>Receptionist</TableCell>
-              <TableCell>abc@gmail.com</TableCell>
-              <TableCell>4657845876</TableCell>
-              <TableCell>
-                <IconButton>
-                  {" "}
-                  <EditIcon sx={{ color: "blue" }} />
-                </IconButton>
-                <IconButton>
-                  <DeleteIcon sx={{ color: "red" }} />
-                </IconButton>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Samikshya kharel</TableCell>
-              <TableCell>Receptionist</TableCell>
-              <TableCell>abc@gmail.com</TableCell>
-              <TableCell>4657845876</TableCell>
-              <TableCell>
-                <IconButton>
-                  {" "}
-                  <EditIcon sx={{ color: "blue" }} />
-                </IconButton>
-                <IconButton>
-                  <DeleteIcon sx={{ color: "red" }} />
-                </IconButton>
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </TableContainer>
+      {isLoading ? (
+        <Typography>Loading...</Typography>
+      ) : (
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }}>
+            <TableHead>
+              <TableRow>
+                <TableCell sx={{ fontWeight: "bold" }}>Name</TableCell>
+                <TableCell sx={{ fontWeight: "bold" }}>Department</TableCell>
+                <TableCell sx={{ fontWeight: "bold" }}>Email</TableCell>
+                <TableCell sx={{ fontWeight: "bold" }}>Phone</TableCell>
+                <TableCell sx={{ fontWeight: "bold" }}>Action</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {employeeList
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((employee) => {
+                  return (
+                    <TableRow key={employee._id}>
+                      <TableCell>
+                        {employee.fName} {employee.lName}
+                      </TableCell>
+                      <TableCell>{employee.department}</TableCell>
+                      <TableCell>{employee.email}</TableCell>
+                      <TableCell>{employee.phone}</TableCell>
+                      <TableCell>
+                        <Link to={`/employee/${employee._id}`}>
+                          <IconButton>
+                            {" "}
+                            <EditIcon sx={{ color: "blue" }} />
+                          </IconButton>
+                        </Link>
+
+                        <IconButton onClick={() => handleDelete(employee._id)}>
+                          <DeleteIcon sx={{ color: "red" }} />
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+          <TablePagination
+            rowsPerPageOptions={[7, 10, 25]}
+            component="div"
+            count={employeeList.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </TableContainer>
+      )}
     </>
   );
 };

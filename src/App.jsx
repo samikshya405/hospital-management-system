@@ -22,6 +22,7 @@ import ProtectedRoutes from "./component/protectedRoute/ProtectedRoutes";
 import AddStaff from "./component/staff/AddStaff";
 import Setting from "./page/setting/Setting";
 import PatientProfile from "./page/patients/PatientProfile";
+import EmployeeProfile from "./component/staff/EmployeeProfile";
 
 
 const App = () => {
@@ -158,6 +159,7 @@ const App = () => {
       />
       <Route path="/setting" element={<ProtectedRoutes><Setting/></ProtectedRoutes>}/>
       <Route path='/patient/:id' element={<ProtectedRoutes><PatientProfile/></ProtectedRoutes>}/>
+      <Route path="/employee/:id" element={<ProtectedRoutes><EmployeeProfile/></ProtectedRoutes>}/>
     </Routes>
   );
 };

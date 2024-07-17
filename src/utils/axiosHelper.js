@@ -89,3 +89,29 @@ export const addNewEmployee = async (employeeDetails) => {
     console.log(error);
   }
 };
+
+
+export const getAllStaff=async()=>{
+  try {
+    const response = await axios.get(employeeEP);
+    return response.data
+
+    
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
+
+export const deleteStaff=async(id)=>{
+  try {
+    const response = await axios.delete(`${employeeEP}/${id}`)
+    return response.data
+    
+  } catch (error) {
+    console.log(error);
+
+  }
+    
+  
+}
