@@ -21,7 +21,7 @@ const PatientProfile = () => {
   }
 
   return (
-   <MainLayout>
+   <MainLayout title="Profile">
      <Container>
       <Paper elevation={3} sx={{ padding: 2, marginTop: 4 }}>
         <Box display="flex" alignItems="center" flexDirection="column">

@@ -23,6 +23,7 @@ import AddStaff from "./component/staff/AddStaff";
 import Setting from "./page/setting/Setting";
 import PatientProfile from "./page/patients/PatientProfile";
 
+
 const App = () => {
   return (
     <Routes>

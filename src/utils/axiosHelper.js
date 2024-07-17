@@ -2,6 +2,7 @@ import axios from "axios";
 const rootAPI = import.meta.env.VITE_APP_ROOTAPI;
 const userEP = rootAPI + "/users";
 const departmentEP = rootAPI + "/department";
+const employeeEP = rootAPI + "/employees";
 
 export const postNewUser = async (userObj) => {
   try {
@@ -65,7 +66,25 @@ export const getDepartmentList = async () => {
 export const updateDepartment = async (id, updateObj) => {
   try {
     const response = await axios.patch(departmentEP + "/" + id, updateObj);
-    return response.data
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteDepartment = async (id) => {
+  try {
+    const response = await axios.delete(`${departmentEP}/${id}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const addNewEmployee = async (employeeDetails) => {
+  try {
+    const response = await axios.post(employeeEP, employeeDetails);
+    return response.data;
   } catch (error) {
     console.log(error);
   }

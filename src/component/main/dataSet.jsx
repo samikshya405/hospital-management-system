@@ -12,20 +12,18 @@ import graph from "../../assets/image/graph.png";
 import staffs from "../../assets/image/staffs.png";
 import setting from '../../assets/image/setting.png'
 
-import HomeIcon from "@mui/icons-material/Home";
+
 import AssignmentSharpIcon from "@mui/icons-material/AssignmentSharp";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import PaidIcon from "@mui/icons-material/Paid";
+
 import { FaUserDoctor } from "react-icons/fa6";
-import { MdOutlineEmergencyShare } from "react-icons/md";
+
 import { TbReportMoney } from "react-icons/tb";
-import { GrDocumentCloud } from "react-icons/gr";
-import AirlineSeatFlatIcon from "@mui/icons-material/AirlineSeatFlat";
-import DirectionsWalkIcon from "@mui/icons-material/DirectionsWalk";
+
 import PeopleIcon from "@mui/icons-material/People";
 import LeaderboardIcon from "@mui/icons-material/Leaderboard";
 import VaccinesIcon from "@mui/icons-material/Vaccines";
-import NotificationImportantIcon from "@mui/icons-material/NotificationImportant";
+
 import SettingsIcon from '@mui/icons-material/Settings';
 
 export const data = [
@@ -34,61 +32,45 @@ export const data = [
     img: registerForm,
     link: "/patientRegistration",
     icon: AssignmentSharpIcon,
+    access:["doctor","nurse", "receptionist", "admin"]
   },
   {
     department: "Appointment",
     img: appointment,
     link: "/appointment",
     icon: CalendarMonthIcon,
+    access:["doctor","nurse", "receptionist","admin"]
   },
   {
     department: "Clinical Management",
     img: clinical,
     link: "/clinical",
     icon: VaccinesIcon,
+    access:["doctor","nurse","admin"]
+    
   },
   {
     department: "Doctor Information",
     img: doctor,
     link: "/doctors",
     icon: FaUserDoctor,
+    access:["doctor","nurse", "receptionist","admin"]
   },
-  // {
-  //   department: "Emergency",
-  //   img: emergency,
-  //   link: "/emergency",
-  //   icon: NotificationImportantIcon,
-  // },
-  // {
-  //   department: "Electronic Medical Record",
-  //   img: emr,
-  //   link: "/emr",
-  //   icon: GrDocumentCloud,
-  // },
-  // {
-  //   department: "InPatient Management",
-  //   img: inPatient,
-  //   link: "/inPatient",
-  //   icon: AirlineSeatFlatIcon,
-  // },
-  // {
-  //   department: "OutPatient Management",
-  //   img: outPatient,
-  //   link: "/outPatient",
-  //   icon: DirectionsWalkIcon,
-  // },
+  
 
   {
     department: "Billing and Payment",
     img: billing,
     link: "/billing",
     icon: TbReportMoney,
+    access:[ "receptionist","admin"]
   },
   {
     department: "Patient Information",
     img: patient,
     link: "/patients",
     icon: PeopleIcon,
+    access:["doctor","nurse", "receptionist","admin"]
   },
 
   {
@@ -96,12 +78,14 @@ export const data = [
     img: graph,
     link: "/statistic",
     icon: LeaderboardIcon,
+    access:["admin"]
   },
   {
     department:"Settings",
     img:setting,
     link:'/setting',
-    icon:SettingsIcon
+    icon:SettingsIcon,
+    access:["admin"]
   }
 ];
 
@@ -311,110 +295,4 @@ export const emergencyContact = [
   },
 ];
 
-export const staffDetails = [
-  {
-    name: "fname",
-    label: "First Name",
-    id: "fName",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "mName",
-    label: "Middle Name",
-    id: "mName",
-    type: "text",
-    required: false,
-  },
-  {
-    name: "lName",
-    label: "Last Name",
-    id: "lName",
-    type: "text",
-    required: true,
-  },
 
-  {
-    name: "dob",
-    label: "DOB",
-    id: "dob",
-    type: "date",
-    required: true,
-  },
-  {
-    name: "gender",
-    label: "Gender",
-    id: "gender",
-    type: "select",
-    required: true,
-    option: [
-      {
-        name: "Male",
-      },
-      {
-        name: "Female",
-      },
-      {
-        name: "Other",
-      },
-    ],
-  },
-
-  {
-    name: "email",
-    label: "Email",
-    id: "email",
-    type: "text",
-    required: false,
-  },
-  {
-    name: "department",
-    label: "Department",
-    id: "department",
-    type: "select",
-    required: true,
-    option: [
-      {
-        name: "Receptionist",
-      },
-      {
-        name: "Doctor",
-      },
-      {
-        name: "Nurse",
-      },
-    ],
-  },
-  {
-    name: "jobTitle",
-    label: "Job Title",
-    id: "jobTitle",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "startDate",
-    label: "Start Date",
-    id: "startDate",
-    type: "date",
-    required: true,
-  },
-  {
-    name: "employmentType",
-    label: "Employment Type",
-    id: "employmentType",
-    type: "select",
-    required: true,
-    option: [
-      {
-        name: "Part time",
-      },
-      {
-        name: "Full Time",
-      },
-      {
-        name: "Casual",
-      },
-    ],
-  },
-];

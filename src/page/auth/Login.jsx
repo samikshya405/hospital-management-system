@@ -8,7 +8,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-// import CustomInput from "../component/auth/CustomInput";
+
 import loginBg from "../../assets/image/loginBg.png";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import { CustomInput, CustomSelect } from "../../component/auth/CustomInput";
@@ -16,7 +16,8 @@ import { fetchUserInfo, userLogin } from "../../utils/axiosHelper";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-// import { hideLoading, showLoading } from "../../redux/features/alertSlice";
+import { getUser } from "../../redux/features/userSlice";
+
 const inputs = [
   {
     name: "department",
@@ -59,7 +60,7 @@ const login = () => {
   const [formData, setformData] = useState(initialState);
   const navigate = useNavigate();
   const [isInValid, setIsInvalid] = useState(false);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -70,7 +71,7 @@ const login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-   
+
     const loginPromise = userLogin(formData);
     toast.promise(loginPromise, {
       pending: "In Progress...",
@@ -80,17 +81,16 @@ const login = () => {
     if (result.status === "success") {
       navigate("/");
     }
-    
 
-    const {status,tokens} = result
+    const { status, tokens } = result;
     status === "success" ? navigate("/") : setIsInvalid(true);
-    if(status === "success"){
+    if (status === "success") {
       sessionStorage.setItem("accessJWT", tokens.accessJWT);
-      localStorage.setItem("refreshJWT", tokens.refreshJWT)
-
+      localStorage.setItem("refreshJWT", tokens.refreshJWT);
     }
-   const user = await fetchUserInfo();
-   console.log("user",user);
+    const user = await fetchUserInfo();
+    dispatch(getUser(user));
+   
   };
 
   return (
@@ -146,11 +146,6 @@ const login = () => {
             >
               Log In
             </Button>
-            <Typography align="center">
-              <Link href="/signup" variant="body2" align="center">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Typography>
           </Box>
         </Grid>
       </Grid>

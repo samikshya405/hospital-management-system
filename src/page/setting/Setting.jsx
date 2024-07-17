@@ -11,8 +11,15 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { toast } from "react-toastify";
 
-import { postDepartment, getDepartmentList } from "../../utils/axiosHelper";
+import {
+  postDepartment,
+  getDepartmentList,
+  updateDepartment,
+  deleteDepartment,
+} from "../../utils/axiosHelper";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -26,32 +33,73 @@ const style = {
 };
 
 const Setting = () => {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [open, setOpen] = useState(false);
   const [department, setDepartment] = useState({});
   const [departmentList, setDepartmentList] = useState([]);
-  const handleChange = (e) => {
-    setDepartment({ department: e.target.value });
-  };
-  const handleAddDepartment = async () => {
-    const response = await postDepartment(department);
-    if (response.status === "success") {
-      console.log(response.message);
-    } else {
-      console.error("Failed to add department:", response.message);
-    }
-    getDepartment();
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
     setOpen(false);
+    setDepartment({});
+    setIsEditing(false);
   };
+
+  const handleChange = (e) => {
+    setDepartment({ ...department, department: e.target.value });
+  };
+
+  const handleAddDepartment = async () => {
+    try {
+      if (isEditing && department._id) {
+        const response = await updateDepartment(department._id, department);
+        if (response.status === "success") {
+          toast.success("Department updated successfully");
+        } else {
+          console.error("Failed to update department:", response.message);
+        }
+      } else {
+        const response = await postDepartment(department);
+        if (response.status === "success") {
+          toast.success("Department added successfully");
+        } else {
+          console.error("Failed to add department:", response.message);
+        }
+      }
+      await getDepartment();
+      handleClose();
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+  };
+
   const getDepartment = async () => {
-    const response = await getDepartmentList();
-    setDepartmentList(response.department);
-    console.log(response.department);
+    try {
+      const response = await getDepartmentList();
+      setDepartmentList(response.department);
+    } catch (error) {
+      console.error("Failed to fetch department list:", error);
+    }
+  };
+
+  const handleEdit = (id) => {
+    const departmentToEdit = departmentList.find((item) => item._id === id);
+    setDepartment(departmentToEdit);
+    setIsEditing(true);
+    setOpen(true);
+  };
+  const handleDelete = async (id) => {
+    const response = await deleteDepartment(id);
+    response.status ==="success" ? 
+    toast("Department updated successfully")
+    :
+    toast.error("Not able to delete. Something went wrong! ")
+    getDepartment();
   };
   useEffect(() => {
     getDepartment();
   }, []);
+
   return (
     <MainLayout title={"Setting"}>
       <Box textAlign={"end"}>
@@ -73,9 +121,13 @@ const Setting = () => {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Add New Department
+            {isEditing ? "Edit Department" : "Add New Department"}
           </Typography>
-          <TextField sx={{ width: "100%" }} onChange={handleChange} />
+          <TextField
+            sx={{ width: "100%" }}
+            value={department.department || ""}
+            onChange={handleChange}
+          />
           <Box textAlign={"end"}>
             <Button
               variant="contained"
@@ -83,38 +135,35 @@ const Setting = () => {
               style={{ background: "var(--primary)" }}
               onClick={handleAddDepartment}
             >
-              Add
+              {isEditing ? "Update" : "Add"}
             </Button>
           </Box>
         </Box>
       </Modal>
       <Box>
-        {departmentList.map((item, i) => {
-          return (
-            <Paper
-              key={item._id}
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                textTransform:"capitalize",
-                p: 2,
-                m: 1,
-              }}
-            >
-              <Box>{item.department}</Box>
-              <Box>
-                <IconButton>
-                  <EditIcon sx={{ color: "blue" }} />
-                </IconButton>
-                <IconButton>
-                  <DeleteIcon sx={{ color: "red" }} />
-                </IconButton>
-              </Box>
-            </Paper>
-          );
-        })}
+        {departmentList.map((item) => (
+          <Paper
+            key={item._id}
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              textTransform: "capitalize",
+              p: 2,
+              m: 1,
+            }}
+          >
+            <Box>{item.department}</Box>
+            <Box>
+              <IconButton onClick={() => handleEdit(item._id)}>
+                <EditIcon sx={{ color: "blue" }} />
+              </IconButton>
 
-        
+              <IconButton onClick={() => handleDelete(item._id)}>
+                <DeleteIcon sx={{ color: "red" }} />
+              </IconButton>
+            </Box>
+          </Paper>
+        ))}
       </Box>
     </MainLayout>
   );
