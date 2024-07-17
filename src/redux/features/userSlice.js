@@ -9,7 +9,12 @@ const userSlice = createSlice({
     getUser: (state, action) => {
       state.user = action.payload;
     },
+    signOut: (state) => {
+      state.user = {};
+    
+      // reset other state fields
+    },
   },
 });
-export const { getUser } = userSlice.actions;
+export const { getUser, signOut } = userSlice.actions;
 export default userSlice.reducer;
