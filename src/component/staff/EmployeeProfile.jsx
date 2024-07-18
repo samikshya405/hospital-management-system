@@ -18,35 +18,46 @@ import CastForEducationIcon from "@mui/icons-material/CastForEducation";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import EditIcon from "@mui/icons-material/Edit";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import EditProfile from "./EditProfile";
+
 
 const EmployeeProfile = () => {
   const { id } = useParams();
   const [employeeList, setEmployeeList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const getAllEmployee = async () => {
     const result = await getAllStaff();
     setLoading(false);
     setEmployeeList(result.employeeList);
   };
+
   const employeeDetails = employeeList.find((employee) => employee._id === id);
   console.log(employeeDetails);
+
   useEffect(() => {
     getAllEmployee();
   }, []);
+
   if (loading) {
     return <div>Loading...</div>;
   }
+
   if (!employeeDetails) {
     return <div>Employee not found</div>;
   }
+
   return (
     <MainLayout title={`${employeeDetails.fName}'s Profile`}>
       <Box sx={{ px: 2 }}>
-        <Link to={'/staffs'}>
-          <Button>
+        <Link to={"/staffs"}>
+          <Button style={{   color:"var(--primary)"}}>
             {" "}
             <ArrowBackIcon />
-            Go Back
+          Back
           </Button>
         </Link>
         <Paper
@@ -57,14 +68,13 @@ const EmployeeProfile = () => {
             alignItems: "center",
             p: 2,
             gap: "40px",
+            position: "relative",
           }}
         >
           <Box className="profileImageContainer">
             <img src={female} className="profileImage" />
           </Box>
-          {/* <IconButton className="editProfile">
-                <EditLocationAltIcon sx={{color:"green"}}/>
-            </IconButton> */}
+
           <Box sx={{ width: "calc(100% - 256px)" }}>
             <Typography
               sx={{
@@ -80,13 +90,17 @@ const EmployeeProfile = () => {
               {employeeDetails.lName}
             </Typography>
             <Box
-              sx={{ display: "flex", justifyContent: "space-between", p: 3 }}
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                p: 3,
+              }}
             >
               <Typography sx={{ textTransform: "capitalize" }}>
                 <span style={{ fontWeight: "bold" }}>Role:</span>{" "}
                 {employeeDetails?.department}
               </Typography>
-              <Typography sx={{ textTransform: "capitalize" }}>
+              <Typography >
                 <span style={{ fontWeight: "bold" }}>Email:</span>{" "}
                 {employeeDetails?.email}
               </Typography>
@@ -96,11 +110,20 @@ const EmployeeProfile = () => {
               </Typography>
             </Box>
           </Box>
+          <Box className="edit">
+            <IconButton onClick={handleOpen}>
+              <EditIcon sx={{ color: "blue", fontSize: "30px" }} />
+            </IconButton>
+          </Box>
+          <EditProfile open={open} handleClose={handleClose} employeeDetails={employeeDetails} getAllEmployee={getAllEmployee} />
         </Paper>
         <Paper sx={{ minHeight: "50vh", mt: 3, p: 2 }}>
-          <Typography sx={{ fontWeight: "bold", fontSize: "20px" }}>
-            Basic Information
-          </Typography>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Typography sx={{ fontWeight: "bold", fontSize: "20px" }}>
+              Basic Information
+            </Typography>
+            <span>(non-editable)</span>
+          </Box>
           <Box sx={{ display: "flex", pt: 1, pb: 3, gap: "95px" }}>
             <Box>
               <Typography
@@ -112,8 +135,8 @@ const EmployeeProfile = () => {
                 sx={{
                   py: 1,
                   px: 2,
-                  bgcolor: "black",
-                  color: "white",
+                  bgcolor: "var(--secondary)",
+                  color: "var(--dark)",
                   borderRadius: "5px",
                 }}
               >
@@ -131,8 +154,8 @@ const EmployeeProfile = () => {
                 sx={{
                   py: 1,
                   px: 2,
-                  bgcolor: "black",
-                  color: "white",
+                  bgcolor: "var(--secondary)",
+                  color: "var(--dark)",
                   borderRadius: "5px",
                 }}
               >
@@ -150,8 +173,8 @@ const EmployeeProfile = () => {
                 sx={{
                   py: 1,
                   px: 2,
-                  bgcolor: "black",
-                  color: "white",
+                  bgcolor: "var(--secondary)",
+                  color: "var(--dark)",
                   borderRadius: "5px",
                 }}
               >
@@ -169,8 +192,8 @@ const EmployeeProfile = () => {
                 sx={{
                   py: 1,
                   px: 2,
-                  bgcolor: "black",
-                  color: "white",
+                  bgcolor: "var(--secondary)",
+                  color: "var(--dark)",
                   borderRadius: "5px",
                 }}
               >
@@ -199,7 +222,7 @@ const EmployeeProfile = () => {
                     Date of Birth
                   </Typography>
                   <Typography sx={{ display: "flex" }}>
-                    67/23/2345 <CalendarMonthIcon />
+                    {employeeDetails.dob.slice(0,10)} <CalendarMonthIcon />
                   </Typography>
                 </Box>
                 <Box>

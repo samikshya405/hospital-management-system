@@ -131,10 +131,12 @@ const EmployeeOnboardingForm = () => {
     required: "true",
     option: [],
   });
+
   const getDepartment = async () => {
     const department = await getDepartmentList();
     setDepartmentList({ ...departmentList, option: department.department });
   };
+
   useEffect(() => {
     getDepartment();
   }, []);
@@ -144,13 +146,28 @@ const EmployeeOnboardingForm = () => {
     setformData({ ...formData, [name]: value });
     // console.log(formData);
   };
+  function generateUniqueId() {
+    const timestamp = Date.now().toString();
+
+    const randomPart = Math.floor(1000 + Math.random() * 9000).toString();
+
+    const uniqueId = timestamp + randomPart;
+
+    return uniqueId.slice(0, 10);
+  }
+
+  // // Example usage
+  // const uniqueId = generateUniqueId();
+  // console.log(uniqueId); // Output: A unique 8-10 digit ID
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    const response = await addNewEmployee(formData);
-    console.log(response);
+    const employeeId = generateUniqueId();
+    const response = await addNewEmployee({ ...formData, employeeId });
+
     setformData(initialState);
   };
+
   return (
     <Box
       width={"80%"}
@@ -235,7 +252,11 @@ const EmployeeOnboardingForm = () => {
             );
           })}
         </Grid>
-        <Typography sx={{color:"orange", py:2}}> Upon creating employye  an email will be sent to them with login details and temporary password.</Typography>
+        <Typography sx={{ color: "orange", py: 2 }}>
+          {" "}
+          Upon creating employye an email will be sent to them with login
+          details and temporary password.
+        </Typography>
         <Box textAlign={"end"}>
           <Button
             variant="contained"

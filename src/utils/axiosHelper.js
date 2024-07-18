@@ -90,28 +90,31 @@ export const addNewEmployee = async (employeeDetails) => {
   }
 };
 
-
-export const getAllStaff=async()=>{
+export const getAllStaff = async () => {
   try {
     const response = await axios.get(employeeEP);
-    return response.data
-
-    
+    return response.data;
   } catch (error) {
     console.log(error);
-    
   }
-}
+};
 
-export const deleteStaff=async(id)=>{
+export const deleteStaff = async (id) => {
   try {
-    const response = await axios.delete(`${employeeEP}/${id}`)
+    const response = await axios.delete(`${employeeEP}/${id}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateProfile=async(id, updatedProfile)=>{
+  try {
+    const response = await axios.patch(employeeEP + '/' + id, updatedProfile )
     return response.data
     
   } catch (error) {
     console.log(error);
-
-  }
     
-  
+  }
 }

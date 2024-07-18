@@ -73,23 +73,18 @@ const StaffsTable = () => {
                 .map((employee) => {
                   return (
                     <TableRow key={employee._id}>
-                      <TableCell>
+                      <TableCell sx={{textTransform:"capitalize"}}>
                         {employee.fName} {employee.lName}
                       </TableCell>
-                      <TableCell>{employee.department}</TableCell>
-                      <TableCell>{employee.email}</TableCell>
-                      <TableCell>{employee.phone}</TableCell>
+                      <TableCell sx={{textTransform:"capitalize"}}>{employee.department}</TableCell>
+                      <TableCell >{employee.email}</TableCell>
+                      <TableCell >{employee.phone}</TableCell>
                       <TableCell>
-                        <Link to={`/employee/${employee._id}`}>
-                          <IconButton>
-                            {" "}
-                            <EditIcon sx={{ color: "blue" }} />
-                          </IconButton>
+                        <Link style={{color:"var(--dark)"}}  to={`/employee/${employee._id}`}>
+                         View Profile
                         </Link>
 
-                        <IconButton onClick={() => handleDelete(employee._id)}>
-                          <DeleteIcon sx={{ color: "red" }} />
-                        </IconButton>
+                        
                       </TableCell>
                     </TableRow>
                   );

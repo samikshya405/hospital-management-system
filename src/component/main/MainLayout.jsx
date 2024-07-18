@@ -5,6 +5,7 @@ import { Box, Typography } from "@mui/material";
 import { Login } from "@mui/icons-material";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const MainLayout = ({ title, children }) => {
   return (
@@ -23,7 +24,7 @@ const MainLayout = ({ title, children }) => {
             >
               <Typography
                 paddingLeft={1}
-                sx={{ fontWeight: "bold", color: "var(--dark)", textTransform:"capitalize" }}
+                sx={{ fontWeight: "bold", color: "var(--dark)", textTransform:"capitalize", display:"flex" }}
               >
                 {title}
               </Typography>
