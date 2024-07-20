@@ -1,9 +1,13 @@
 import React from "react";
 
-import { compareDate } from "./date";
+
 import EditRoster from "./EditRoster";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import RosterForm from "./RosterForm";
+import { compareDate } from "./date";
+
+import '../../page/rosters/roster.css'
+import { Box, Typography } from "@mui/material";
 
 const EachRow = ({
   dept,
@@ -22,9 +26,9 @@ const EachRow = ({
           ref={provided.innerRef}
           {...provided.droppableProps}
         >
-          <div className="table-data">
-            <p className="fw-bold">{dayIndex === 0 && dept.name} </p>
-            <div className="text-center mb-1">
+          <Box className="table-data">
+            <Typography sx={{fontWeight:"bold"}}>{dayIndex === 0 && dept.name} </Typography>
+            <Box sx={{textAlign:"center", mb:1}}>
               <RosterForm
                 day={day}
                 deptName={dept.name}
@@ -32,7 +36,7 @@ const EachRow = ({
                 getRosterData={getRosterData}
                 rosterData={shiftData}
               />
-            </div>
+            </Box>
 
             {shiftData?.map((item, itemIndex) => {
               if (
@@ -56,7 +60,7 @@ const EachRow = ({
 
               return null;
             })}
-          </div>
+          </Box>
           {provided.placeholder}
         </td>
       )}
