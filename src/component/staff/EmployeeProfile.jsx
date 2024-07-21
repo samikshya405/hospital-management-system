@@ -86,7 +86,7 @@ const EmployeeProfile = () => {
                 p: 3,
               }}
             >
-              {employeeDetails.fName} {employeeDetails.mName}{" "}
+              {employeeDetails.fName}{" "} {employeeDetails.mName}{" "}
               {employeeDetails.lName}
             </Typography>
             <Box
