@@ -38,6 +38,7 @@ const Rosters = () => {
   const getStaffList = async () => {
     const response = await getAllStaff();
     if (response.status === "success") {
+      // console.log(response.employeeList);
       setStaffList(response.employeeList);
     } else {
       console.log("error fetching staffs");
@@ -48,6 +49,7 @@ const Rosters = () => {
   const getDepartment = async () => {
     const response = await getDepartmentList();
     const { department } = response;
+    // console.log(department);
 
     setdepartment(department);
   };
@@ -219,7 +221,7 @@ const Rosters = () => {
               </TableHead>
               <DragDropContext onDragEnd={onDragEnd}>
                 <TableBody>
-                  {departments.map((dept, deptIndex) => (
+                  {department.map((dept, deptIndex) => (
                     <TableRow key={deptIndex} className="tableData">
                        {week.map((day, dayIndex) => (
                       <EachRow
