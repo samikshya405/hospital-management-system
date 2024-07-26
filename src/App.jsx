@@ -23,6 +23,7 @@ import AddStaff from "./component/staff/AddStaff";
 import Setting from "./page/setting/Setting";
 import PatientProfile from "./page/patients/PatientProfile";
 import EmployeeProfile from "./component/staff/EmployeeProfile";
+import BookAppointment from "./page/appointment/BookAppointment";
 
 
 const App = () => {
@@ -68,6 +69,7 @@ const App = () => {
           </ProtectedRoutes>
         }
       />
+      <Route path="/bookAppointment" element={<ProtectedRoutes><BookAppointment/></ProtectedRoutes>}/>
       <Route
         path="/billing"
         element={

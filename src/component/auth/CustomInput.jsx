@@ -9,7 +9,9 @@ import {
   
  
 } from "@mui/material";
-import createTheme from "@mui/material/styles/createTheme";
+// import createTheme from "@mui/material/styles/createTheme";
+import { createTheme } from '@mui/material/styles';
+
 
 import React from "react";
 const theme = createTheme({

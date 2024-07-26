@@ -4,12 +4,17 @@ import moment from "moment";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import MainLayout from "../../component/main/MainLayout";
+import { getRoster } from "../../utils/rosterAxios";
+import { getAllStaff } from "../../utils/axiosHelper";
+import { Box, Button, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const localizer = momentLocalizer(moment);
 
 const Appointment = () => {
   const [appointments, setAppointments] = useState([]);
   const [doctors, setDoctors] = useState([]);
+  const [doctorShiftData, setDoctorShiftData] = useState([]);
   const [form, setForm] = useState({
     patientName: "",
     doctorId: "",
@@ -20,16 +25,25 @@ const Appointment = () => {
   });
   const [availableSlots, setAvailableSlots] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/appointments")
-      .then((response) => setAppointments(response.data))
-      .catch((err) => console.log(err));
+  const getRosterData = async () => {
+    const response = await getRoster();
+    const { result } = response.data;
+    console.log(result);
+    setDoctorShiftData(
+      result.filter((staff) => staff.department.toLowerCase() === "doctor")
+    );
+  };
 
-    axios
-      .get("http://localhost:5000/api/doctors")
-      .then((response) => setDoctors(response.data))
-      .catch((err) => console.log(err));
+  const getDoctorList = async () => {
+    const result = await getAllStaff();
+    setDoctors(
+      result.employeeList.filter((item) => item.department === "doctor")
+    );
+  };
+
+  useEffect(() => {
+    getDoctorList();
+    getRosterData();
   }, []);
 
   const handleChange = (e) => {
@@ -52,41 +66,39 @@ const Appointment = () => {
     }
   };
 
-  const fetchAvailableSlots = (doctorId, date) => {
+  const fetchAvailableSlots = async (doctorId, date) => {
     const doctor = doctors.find((doc) => doc._id === doctorId);
     if (!doctor) return;
 
     const dayOfWeek = new Date(date).toLocaleDateString("en-US", {
       weekday: "long",
     });
-    const roster = doctor.roster.find((r) => r.day === dayOfWeek);
+
+    const roster = doctorShiftData.find(
+      (shift) => shift.staffName === doctor.name && shift.startDate <= date && shift.endDate >= date
+    );
+
     if (!roster) return;
 
-    const start = new Date(`${date}T${roster.start}:00`);
-    const end = new Date(`${date}T${roster.end}:00`);
+    const start = moment(`${date}T${roster.startTime}`);
+    const end = moment(`${date}T${roster.endTime}`);
     const slots = [];
 
     while (start < end) {
-      const slot = start.toLocaleTimeString("en-US", {
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-      slots.push(slot);
-      start.setMinutes(start.getMinutes() + 15);
+      slots.push(start.format("HH:mm"));
+      start.add(15, "minutes");
     }
 
-    axios
-      .post("http://localhost:5000/api/check-availability", { doctorId, date })
-      .then((response) => {
-        const unavailableSlots = response.data
-          .filter((appointment) => appointment.date === date)
-          .map((app) => app.time);
-        const available = slots.filter(
-          (slot) => !unavailableSlots.includes(slot)
-        );
-        setAvailableSlots(available);
-      })
-      .catch((err) => console.log(err));
+    try {
+      const response = await axios.post("http://localhost:5000/api/check-availability", { doctorId, date });
+      const unavailableSlots = response.data
+        .filter((appointment) => appointment.date === date)
+        .map((app) => app.time);
+      const available = slots.filter((slot) => !unavailableSlots.includes(slot));
+      setAvailableSlots(available);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -108,8 +120,19 @@ const Appointment = () => {
 
   return (
     <MainLayout title={"Appointment"}>
-      <div>
-        <h2>Book Appointment</h2>
+      <Box>
+      <Link to={'/bookAppointment'}>
+          <Box textAlign={"end"}>
+            <Button
+              variant="contained"
+              sx={{ mt: 3, mb: 2, paddingX: 5 }}
+              style={{ background: "var(--primary)" }}
+              type="submit"
+            >
+              Book Appointment
+            </Button>
+          </Box>
+        </Link>
         <form onSubmit={handleSubmit}>
           <input
             name="patientName"
@@ -125,7 +148,7 @@ const Appointment = () => {
             <option value="">Select Doctor</option>
             {doctors.map((doctor) => (
               <option key={doctor._id} value={doctor._id}>
-                {doctor.name}
+                {doctor.fName}
               </option>
             ))}
           </select>
@@ -159,7 +182,7 @@ const Appointment = () => {
           endAccessor="end"
           style={{ height: 500, margin: "50px" }}
         />
-      </div>
+      </Box>
     </MainLayout>
   );
 };

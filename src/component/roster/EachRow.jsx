@@ -27,11 +27,11 @@ const EachRow = ({
           {...provided.droppableProps}
         >
           <Box className="table-data">
-            <Typography sx={{fontWeight:"bold"}}>{dayIndex === 0 && dept.name} </Typography>
+            <Typography sx={{fontWeight:"bold", textTransform:"capitalize"}}>{dayIndex === 0 && dept?.department} </Typography>
             <Box sx={{textAlign:"center", mb:1}}>
               <RosterForm
                 day={day}
-                deptName={dept.name}
+                deptName={dept.department}
                 staffs={staffList}
                 getRosterData={getRosterData}
                 rosterData={shiftData}
@@ -41,7 +41,7 @@ const EachRow = ({
             {shiftData?.map((item, itemIndex) => {
               if (
                 compareDate(item.startDate, day.date) &&
-                item.department === dept.name
+                item.department === dept.department
               ) {
                 return (
                   <div key={itemIndex}>

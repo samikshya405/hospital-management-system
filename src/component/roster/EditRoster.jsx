@@ -1,7 +1,4 @@
 import { useEffect, useState } from "react";
-import { Form } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
 import { IoIosTime } from "react-icons/io";
 import { GiHotMeal } from "react-icons/gi";
 import { FaCalendar } from "react-icons/fa";
@@ -9,12 +6,35 @@ import { CgDanger } from "react-icons/cg";
 import { FaDotCircle } from "react-icons/fa";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { compareDate, generateTimeOptions } from "./date";
-import { deleteRoster, updateRoster } from "../utilis/axiosHelper";
+
 import { toast } from "react-toastify";
 import { Draggable } from "react-beautiful-dnd";
+import { deleteRoster, updateRoster } from "../../utils/rosterAxios";
+import {
+  Box,
+  Button,
+  InputLabel,
+  MenuItem,
+  Modal,
+  Select,
+  Typography,
+} from "@mui/material";
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 function EditRoster({ item, itemIndex, staffs, rosterData, getRosterData }) {
-  const [show, setShow] = useState(false);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const [showEndDate, setshowEndDate] = useState("");
   const staffToSHow = staffs.filter(
     (staff) => staff.department === item.department
@@ -27,13 +47,11 @@ function EditRoster({ item, itemIndex, staffs, rosterData, getRosterData }) {
   const [overLapped, setOverLapped] = useState(false);
 
   useEffect(() => {
-    if (!compareDate(item.startDate, item.endDate)){
-      setshowEndDate(new Date(item.endDate).toDateString().slice(0, 10))
+    if (!compareDate(item.startDate, item.endDate)) {
+      setshowEndDate(new Date(item.endDate).toDateString().slice(0, 10));
     }
-      
   }, []);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+ 
 
   const handleSelectChange = (e) => {
     const { name, value } = e.target;
@@ -165,7 +183,7 @@ function EditRoster({ item, itemIndex, staffs, rosterData, getRosterData }) {
           <div
             className="roster mb-1"
             role="button"
-            onClick={handleShow}
+            onClick={handleOpen}
             {...provided.dragHandleProps}
             {...provided.draggableProps}
             ref={provided.innerRef}
@@ -184,94 +202,95 @@ function EditRoster({ item, itemIndex, staffs, rosterData, getRosterData }) {
         )}
       </Draggable>
 
-      <Modal show={show} onHide={handleClose} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>
-            <Form.Select
-              name="staffName"
-              value={shiftData.staffName}
-              onChange={handleSelectChange}
-              required
-            >
-              <option value="empty">
-                Empty Shift ( assigned it to somene later)
-              </option>
-
-              {staffToSHow?.map((staff, i) => (
-                <option value={staff.fName} key={i}>
-                  {staff.fName}
-                </option>
-              ))}
-            </Form.Select>
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+      <Modal open={open} onClose={handleClose} >
+        <Box sx={style}>
+        <Box >
+          <InputLabel id="demo-simple-select-label">Age</InputLabel>
+          <Select
+            name="staffName"
+            value={shiftData.staffName}
+            onChange={handleSelectChange}
+            required
+          >
+            <MenuItem value={"empty"}>
+              Empty Shift ( assigned it to somene later)
+            </MenuItem>
+            {staffToSHow?.map((staff, i) => (
+              <MenuItem value={staff.fName} key={i}>
+                {staff.fName}
+              </MenuItem>
+            ))}
+          </Select>
+        </Box>
+        <Box>
           {staffToSHow?.length > 0 ? null : (
-            <p className="text-warning">
+            <Typography sx={{ color: "orange" }}>
               No staff has been assigned to this department yet
-            </p>
+            </Typography>
           )}
           {overLapped && (
-            <p className="text-danger">
+            <Typography sx={{ color: "red" }}>
               This team member has an overlapping shift <CgDanger />
-            </p>
+            </Typography>
           )}
-          <p className="text-muted d-flex gap-3">
+          <Typography sx={{ display: "flex", gap: 3 }}>
             <FaCalendar /> {date}
             {showEndDate && <>-{showEndDate}</>}
-          </p>
-
-          <p className="d-flex gap-3 align-items-center">
+          </Typography>
+          <Typography sx={{ display: "flex", gap: 3, alignItems: "center" }}>
             <IoIosTime />
-            <Form.Select
-              aria-label="Default select example"
+            <Select
+              labelId="demo-simple-select-label"
               style={{ width: "fit-content" }}
               name="startTime"
               value={shiftData.startTime}
               onChange={handleSelectChange}
             >
               {timeOptions.map((time, i) => (
-                <option key={i} value={time.timeValue}>
+                <MenuItem key={i} value={time.timeValue}>
                   {time.displayText}
-                </option>
+                </MenuItem>
               ))}
-            </Form.Select>
+            </Select>
             -
-            <Form.Select
+            <Select
               style={{ width: "fit-content" }}
               name="endTime"
               value={shiftData.endTime}
               onChange={handleSelectChange}
             >
               {timeOptions.map((time, i) => (
-                <option key={i} value={time.timeValue}>
+                <MenuItem key={i} value={time.timeValue}>
                   {time.displayText}
-                </option>
+                </MenuItem>
               ))}
-            </Form.Select>
-          </p>
-          <p className="d-flex align-items-center gap-3">
+            </Select>
+          </Typography>
+          <Typography sx={{ display: "flex", alignItems: "center", gap: 3 }}>
             <FaDotCircle /> {item.department}
-          </p>
-          <p className="d-flex gap-3">
+          </Typography>
+          <Typography sx={{ display: "flex", gap: 3 }}>
             {" "}
             <GiHotMeal /> Half hr meal break(unpaid)
-          </p>
-        </Modal.Body>
-        <Modal.Footer className="d-flex justify-content-between">
-          <div>
-            <p className="p-0 m-0 text-muted">Total</p>
-            <p className="fw-bold">7h 30min</p>
-          </div>
-          <div className="d-flex gap-2">
-            <Button variant="danger" onClick={handleDelete}>
+          </Typography>
+        </Box>
+        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Box>
+            <Typography sx={{ p: 0, m: 0 }}>Total</Typography>
+            <Typography sx={{ fontWeight: "bold" }}>7h 30min</Typography>
+          </Box>
+          <Box sx={{ display: "flex", gap: 3 }}>
+            <Button variant="contained" onClick={handleDelete}>
               <RiDeleteBin6Fill />
             </Button>
-            <Button variant="primary" onClick={handleSubmit}>
+            <Button variant="contained" onClick={handleSubmit}>
               Save
             </Button>
-          </div>
-        </Modal.Footer>
+          </Box>
+        </Box>
+
+        </Box>
+       
       </Modal>
     </>
   );

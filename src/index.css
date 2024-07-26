@@ -126,3 +126,8 @@ h2 + ul {
   
   color: white;
 }
+.slot:hover{
+  background-color: green;
+  color: white;
+
+}

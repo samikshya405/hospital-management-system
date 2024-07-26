@@ -19,13 +19,16 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import EditIcon from "@mui/icons-material/Edit";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import EditProfile from "./EditProfile";
-
+import EditDetails from "./EditDetails";
 
 const EmployeeProfile = () => {
   const { id } = useParams();
   const [employeeList, setEmployeeList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = React.useState(false);
+  const [openPersonal, setOpenPersonal] = useState(false);
+  const handleOpenPersonal = () => setOpenPersonal(true);
+  const handleClosePersonal = () => setOpenPersonal(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -54,10 +57,10 @@ const EmployeeProfile = () => {
     <MainLayout title={`${employeeDetails.fName}'s Profile`}>
       <Box sx={{ px: 2 }}>
         <Link to={"/staffs"}>
-          <Button style={{   color:"var(--primary)"}}>
+          <Button style={{ color: "var(--primary)" }}>
             {" "}
             <ArrowBackIcon />
-          Back
+            Back
           </Button>
         </Link>
         <Paper
@@ -86,7 +89,7 @@ const EmployeeProfile = () => {
                 p: 3,
               }}
             >
-              {employeeDetails.fName}{" "} {employeeDetails.mName}{" "}
+              {employeeDetails.fName} {employeeDetails.mName}{" "}
               {employeeDetails.lName}
             </Typography>
             <Box
@@ -100,7 +103,7 @@ const EmployeeProfile = () => {
                 <span style={{ fontWeight: "bold" }}>Role:</span>{" "}
                 {employeeDetails?.department}
               </Typography>
-              <Typography >
+              <Typography>
                 <span style={{ fontWeight: "bold" }}>Email:</span>{" "}
                 {employeeDetails?.email}
               </Typography>
@@ -115,7 +118,12 @@ const EmployeeProfile = () => {
               <EditIcon sx={{ color: "blue", fontSize: "30px" }} />
             </IconButton>
           </Box>
-          <EditProfile open={open} handleClose={handleClose} employeeDetails={employeeDetails} getAllEmployee={getAllEmployee} />
+          <EditProfile
+            open={open}
+            handleClose={handleClose}
+            employeeDetails={employeeDetails}
+            getAllEmployee={getAllEmployee}
+          />
         </Paper>
         <Paper sx={{ minHeight: "50vh", mt: 3, p: 2 }}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -222,7 +230,7 @@ const EmployeeProfile = () => {
                     Date of Birth
                   </Typography>
                   <Typography sx={{ display: "flex" }}>
-                    {employeeDetails.dob.slice(0,10)} <CalendarMonthIcon />
+                    {employeeDetails.dob.slice(0, 10)} <CalendarMonthIcon />
                   </Typography>
                 </Box>
                 <Box>
@@ -236,10 +244,16 @@ const EmployeeProfile = () => {
               </Box>
             </Box>
             <Box>
-              <IconButton>
+              <IconButton onClick={handleOpenPersonal}>
                 <EditIcon sx={{ color: "blue", fontSize: "30px" }} />
               </IconButton>
             </Box>
+            <EditDetails
+              openPersonal={openPersonal}
+              handleClosePersonal={handleClosePersonal}
+              employeeDetails={employeeDetails}
+              getAllEmployee={getAllEmployee}
+            />
           </Box>
           <hr />
           <Typography sx={{ fontWeight: "bold", fontSize: "20px", pt: 1 }}>

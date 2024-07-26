@@ -11,20 +11,20 @@ import { useSelector } from "react-redux";
 const Dashboard = () => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
-  console.log(user);
+
   const menu = data.filter((item) =>
     item.access.find(
       (ite) => ite.toLowerCase() === user.department.toLowerCase()
     )
   );
-  console.log(menu);
+ 
 
   const hanldeClick = (path) => {
     navigate(path);
   };
 
   return (
-    <MainLayout title="DashBoard">
+    <MainLayout title="Dashboard">
       <Grid container p={3} spacing={2}>
         {menu.map((item, index) => (
           <Grid
