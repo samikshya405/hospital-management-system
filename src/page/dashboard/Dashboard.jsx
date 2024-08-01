@@ -17,7 +17,6 @@ const Dashboard = () => {
       (ite) => ite.toLowerCase() === user.department.toLowerCase()
     )
   );
- 
 
   const hanldeClick = (path) => {
     navigate(path);
