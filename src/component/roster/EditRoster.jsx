@@ -180,7 +180,9 @@ function EditRoster({ item, itemIndex, staffs, rosterData, getRosterData }) {
     <>
       <Draggable draggableId={item._id} index={itemIndex}>
         {(provided) => (
-          <div
+          <Box
+          sx={{marginBottom:"8px"}}
+          
             className="roster mb-1"
             role="button"
             onClick={handleOpen}
@@ -194,11 +196,11 @@ function EditRoster({ item, itemIndex, staffs, rosterData, getRosterData }) {
             }}
           >
             {" "}
-            <p className="p-0 m-0 fw-bold">
+            <Typography sx={{fontWeight:"bold"}} >
               {item.startTime} - {item.endTime}
-            </p>
-            <p className="p-0 m-0">{item.staffName}</p>
-          </div>
+            </Typography>
+            <Typography sx={{textTransform:"capitalize"}}>{item.staffName}</Typography>
+          </Box>
         )}
       </Draggable>
 

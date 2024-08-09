@@ -27,8 +27,9 @@ const EachRow = ({
           {...provided.droppableProps}
         >
           <Box className="table-data">
-            <Typography sx={{fontWeight:"bold", textTransform:"capitalize"}}>{dayIndex === 0 && dept?.department} </Typography>
-            <Box sx={{textAlign:"center", mb:1}}>
+            
+            <Typography sx={{fontWeight:"bold", textTransform:"capitalize",px:1}}>{dayIndex === 0 && dept?.department} </Typography>
+            <Box sx={{textAlign:"center", mb:1,mt:2}}>
               <RosterForm
                 day={day}
                 deptName={dept.department}

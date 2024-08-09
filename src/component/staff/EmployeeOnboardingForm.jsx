@@ -162,6 +162,7 @@ const EmployeeOnboardingForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     const employeeId = generateUniqueId();
     const response = await addNewEmployee({ ...formData, employeeId });
 

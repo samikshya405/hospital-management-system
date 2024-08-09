@@ -4,6 +4,7 @@ import HomeIcon from "@mui/icons-material/Home";
 
 import { data } from "./dataSet";
 import { useNavigate } from "react-router-dom";
+import "../../App.css";
 
 const Sidebar = ({ title }) => {
   const navigate = useNavigate();
@@ -14,12 +15,11 @@ const Sidebar = ({ title }) => {
     <Box
       width={"5vw"}
       height={"94vh"}
-      
       bgcolor={"var(--sidebar)"}
       display={"flex"}
       flexDirection={"column"}
       alignItems={"center"}
-      gap={2}
+      gap={4}
       position={"sticky"}
       top={"0"}
     >
@@ -31,8 +31,10 @@ const Sidebar = ({ title }) => {
         py={1}
         sx={{ cursor: "pointer" }}
         onClick={() => handleClick("/")}
+        className="menu"
       >
         <HomeIcon sx={{ color: "var(--activeMenu)", fontSize: "30px" }} />
+        <Box className="menu-name">Dashboard</Box>
       </Box>
 
       {data.map((icon) => {
@@ -40,6 +42,7 @@ const Sidebar = ({ title }) => {
           <Box
             key={icon.department}
             bgcolor={title === icon.department ? "var(--dark)" : "inherit"}
+            className="menu"
             width={"100%"}
             display={"flex"}
             justifyContent={"center"}
@@ -56,6 +59,7 @@ const Sidebar = ({ title }) => {
                 fontSize: "30px",
               }}
             />
+            <Box className="menu-name">{icon.department}</Box>
           </Box>
         );
       })}

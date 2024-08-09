@@ -57,7 +57,8 @@ const Dashboard = () => {
             </Typography>
           </Grid>
         ))}
-        {user.department === "Admin" && (
+
+        {user.department.toLowerCase() === "admin" && (
           <>
             <Grid
               item

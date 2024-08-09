@@ -92,7 +92,7 @@ const SignUp = () => {
       setError({ password: true, confirmPassword: true });
       return;
     }
-    console.log(formData);
+  
     const signInPromise = postNewUser(rest);
     toast.promise(signInPromise, {
       pending: "In Progress...",

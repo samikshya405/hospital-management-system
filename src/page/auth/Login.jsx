@@ -19,25 +19,7 @@ import { useDispatch } from "react-redux";
 import { getUser } from "../../redux/features/userSlice";
 
 const inputs = [
-  {
-    name: "department",
-    label: "Select Department",
-    id: "department",
-    type: "select",
-    required: true,
 
-    option: [
-      {
-        name: "Receptionist",
-      },
-      {
-        name: "Doctor",
-      },
-      {
-        name: "Admin",
-      },
-    ],
-  },
   {
     name: "email",
     label: "Email",
@@ -52,7 +34,7 @@ const inputs = [
   },
 ];
 const initialState = {
-  department: "",
+
   email: "",
   password: "",
 };

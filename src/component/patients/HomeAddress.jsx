@@ -2,17 +2,19 @@ import { Box, Button, Grid, InputLabel, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { homeAddress } from "../main/dataSet";
 import { CustomInput, CustomSelect } from "../auth/CustomInput";
+import { getPatientDetails } from "../../redux/features/patientSlice";
+import { useDispatch } from "react-redux";
 
 const initialState = {
-  streetAddress: "",
-  streetAddressLine2: "",
-  city: "",
-  state: null,
-  postal: "",
-  
+  patientStreetAddress: "",
+  patientStreetAddressLine2: "",
+  patientCity: "",
+  patientState: null,
+  patientpostal: "",
 };
 const HomeAddress = ({ activeForm, setActiveForm }) => {
   const [formData, setformData] = useState(initialState);
+  const dispatch = useDispatch()
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,14 +24,10 @@ const HomeAddress = ({ activeForm, setActiveForm }) => {
     e.preventDefault();
     setActiveForm(activeForm + 1);
 
-    console.log(formData);
+    dispatch(getPatientDetails(formData))
   };
   return (
-    <Box
-      component={"form"}
-      onSubmit={handleNext}
-     
-    >
+    <Box component={"form"} onSubmit={handleNext}>
       <Box py={2}>
         <Typography sx={{ fontWeight: "bold", fontSize: "20px", my: 2 }}>
           Home Address
@@ -40,7 +38,12 @@ const HomeAddress = ({ activeForm, setActiveForm }) => {
               <Grid item xs={12} md={6} key={input.id + i}>
                 {input.type !== "select" ? (
                   <>
-                    <InputLabel>{label}</InputLabel>
+                    {input.required ? (
+                      <InputLabel>{label}*</InputLabel>
+                    ) : (
+                      <InputLabel>{label}</InputLabel>
+                    )}
+
                     <CustomInput
                       key={input.id}
                       {...input}
@@ -50,7 +53,11 @@ const HomeAddress = ({ activeForm, setActiveForm }) => {
                 ) : (
                   <>
                     {" "}
-                    <InputLabel>{label}</InputLabel>
+                    {input.required ? (
+                      <InputLabel>{label}*</InputLabel>
+                    ) : (
+                      <InputLabel>{label}</InputLabel>
+                    )}
                     <CustomSelect
                       input={input}
                       value={formData[input.name]}

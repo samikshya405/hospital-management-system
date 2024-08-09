@@ -32,21 +32,21 @@ export const data = [
     img: registerForm,
     link: "/patientRegistration",
     icon: AssignmentSharpIcon,
-    access:["doctor","nurse", "receptionist", "admin"]
+    access:[ "receptionist", "admin"]
   },
   {
     department: "Appointment",
     img: appointment,
     link: "/appointment",
     icon: CalendarMonthIcon,
-    access:["doctor","nurse", "receptionist","admin"]
+    access:["doctor", "receptionist","admin"]
   },
   {
     department: "Clinical Management",
     img: clinical,
     link: "/clinical",
     icon: VaccinesIcon,
-    access:["doctor","nurse","admin"]
+    access:["doctor","admin"]
     
   },
   {
@@ -54,7 +54,7 @@ export const data = [
     img: doctor,
     link: "/doctors",
     icon: FaUserDoctor,
-    access:["doctor","nurse", "receptionist","admin"]
+    access:["doctor", "receptionist","admin"]
   },
   
 
@@ -70,7 +70,7 @@ export const data = [
     img: patient,
     link: "/patients",
     icon: PeopleIcon,
-    access:["doctor","nurse", "receptionist","admin"]
+    access:["doctor", "receptionist","admin"]
   },
 
   {
@@ -89,30 +89,31 @@ export const data = [
   }
 ];
 
+
 export const homeAddress = [
   {
-    name: "streetAddress",
+    name: "patientStreetAddress",
     label: "Street Address",
     id: "streetName",
     type: "text",
     required: true,
   },
   {
-    name: "streetAddressLine2",
+    name: "patientStreetAddressLine2",
     label: "Street Address",
     id: "streetAddressLine2",
     type: "text",
     required: false,
   },
   {
-    name: "city",
+    name: "patientCity",
     label: "City",
     id: "city",
     type: "text",
     required: true,
   },
   {
-    name: "state",
+    name: "patientState",
     label: "State/Province",
     id: "state",
     type: "text",
@@ -120,7 +121,7 @@ export const homeAddress = [
   },
 
   {
-    name: "postal",
+    name: "patientpostal",
     label: "Postal/Zip Code",
     id: "postal",
     type: "number",
@@ -129,7 +130,7 @@ export const homeAddress = [
 ];
 export const personalDetails = [
   {
-    name: "fname",
+    name: "fName",
     label: "First Name",
     id: "fName",
     type: "text",
@@ -225,73 +226,75 @@ export const personalDetails = [
     label: "Email",
     id: "email",
     type: "text",
-    required: false,
+    required: true,
   },
 ];
+
+
 export const emergencyContact = [
   {
-    name: "fName",
+    name: "emergencyfName",
     label: "First Name",
     id: "fnameE",
     type: "text",
-    required: false,
+    required: true,
   },
   {
-    name: "lName",
+    name: "emergencylName",
     label: "Last Name",
     id: "lnameE",
     type: "text",
-    required: false,
+    required: true,
   },
   {
-    name: "relation",
+    name: "emergencyRelation",
     label: "Relation",
     id: "relation",
     type: "text",
     required: false,
   },
   {
-    name: "number",
+    name: "emergencyNumber",
     label: "Phone Number",
     id: "numberE",
     type: "number",
-    required: false,
-  },
-  {
-    name: "streetAddress",
-    label: "Street Address",
-    id: "streetName",
-    type: "text",
     required: true,
   },
   {
-    name: "streetAddressLine2",
+    name: "emergencyStreetAddress",
+    label: "Street Address",
+    id: "streetName",
+    type: "text",
+    required: false,
+  },
+  {
+    name: "emergencyStreetAddressLine2",
     label: "Street Address line 2",
     id: "streetAddressLine2",
     type: "text",
     required: false,
   },
   {
-    name: "city",
+    name: "emergencyCity",
     label: "City",
     id: "city",
     type: "text",
-    required: true,
+    required: false,
   },
   {
-    name: "state",
+    name: "emergencyState",
     label: "State/Province",
     id: "state",
     type: "text",
-    required: true,
+    required: false,
   },
 
   {
-    name: "postal",
+    name: "emergencyPostal",
     label: "Postal/Zip Code",
     id: "postal",
     type: "number",
-    required: true,
+    required: false,
   },
 ];
 

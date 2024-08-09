@@ -24,6 +24,9 @@ import Setting from "./page/setting/Setting";
 import PatientProfile from "./page/patients/PatientProfile";
 import EmployeeProfile from "./component/staff/EmployeeProfile";
 import BookAppointment from "./page/appointment/BookAppointment";
+import DoctorProfile from "./page/doctors/DoctorProfile";
+import UnAuthorized from "./page/UnAuthorized";
+import NotFound from "./page/NotFound";
 
 
 const App = () => {
@@ -48,7 +51,7 @@ const App = () => {
       <Route
         path="/"
         element={
-          <ProtectedRoutes>
+          <ProtectedRoutes roles={['admin', 'doctor', 'receptionist']}>
             <Dashboard />
           </ProtectedRoutes>
         }
@@ -56,7 +59,7 @@ const App = () => {
       <Route
         path="/patientRegistration"
         element={
-          <ProtectedRoutes>
+          <ProtectedRoutes roles={['admin', 'receptionist']}>
             <PatientRegistration />
           </ProtectedRoutes>
         }
@@ -64,16 +67,16 @@ const App = () => {
       <Route
         path="/appointment"
         element={
-          <ProtectedRoutes>
+          <ProtectedRoutes roles={['admin', 'doctor', 'receptionist']}>
             <Appointment />
           </ProtectedRoutes>
         }
       />
-      <Route path="/bookAppointment" element={<ProtectedRoutes><BookAppointment/></ProtectedRoutes>}/>
+      <Route path="/bookAppointment" element={<ProtectedRoutes roles={['admin', 'receptionist']}><BookAppointment/></ProtectedRoutes>}/>
       <Route
         path="/billing"
         element={
-          <ProtectedRoutes>
+          <ProtectedRoutes roles={['admin', 'receptionist']}>
             <Billing />
           </ProtectedRoutes>
         }
@@ -81,47 +84,26 @@ const App = () => {
       <Route
         path="/clinical"
         element={
-          <ProtectedRoutes>
+          <ProtectedRoutes roles={['admin', 'doctor']}>
             <ClinicalManagement />
           </ProtectedRoutes>
         }
       />
-      <Route
-        path="/emr"
-        element={
-          <ProtectedRoutes>
-            <ElectronicMedicalRecord />
-          </ProtectedRoutes>
-        }
-      />
+      
       <Route
         path="/doctors"
         element={
-          <ProtectedRoutes>
+          <ProtectedRoutes roles={['admin', 'doctor', 'receptionist']}>
             <DoctorInformation />
           </ProtectedRoutes>
         }
       />
-      <Route
-        path="/inPatient"
-        element={
-          <ProtectedRoutes>
-            <InPatient />
-          </ProtectedRoutes>
-        }
-      />
-      <Route
-        path="/outPatient"
-        element={
-          <ProtectedRoutes>
-            <OutPatient />
-          </ProtectedRoutes>
-        }
-      />
+     
+      
       <Route
         path="/patients"
         element={
-          <ProtectedRoutes>
+          <ProtectedRoutes roles={['admin', 'doctor', 'receptionist']}>
             <Patients />
           </ProtectedRoutes>
         }
@@ -129,7 +111,7 @@ const App = () => {
       <Route
         path="/statistic"
         element={
-          <ProtectedRoutes>
+          <ProtectedRoutes roles={['admin']}>
             <Statistics />
           </ProtectedRoutes>
         }
@@ -138,7 +120,7 @@ const App = () => {
       <Route
         path="/staffs"
         element={
-          <ProtectedRoutes>
+          <ProtectedRoutes roles={['admin']}>
             <Staffs />
           </ProtectedRoutes>
         }
@@ -146,7 +128,7 @@ const App = () => {
       <Route
         path="/rosters"
         element={
-          <ProtectedRoutes>
+          <ProtectedRoutes roles={['admin']}>
             <Rosters />
           </ProtectedRoutes>
         }
@@ -154,14 +136,17 @@ const App = () => {
       <Route
         path="/addStaff"
         element={
-          <ProtectedRoutes>
+          <ProtectedRoutes roles={['admin']}>
             <AddStaff />
           </ProtectedRoutes>
         }
       />
-      <Route path="/setting" element={<ProtectedRoutes><Setting/></ProtectedRoutes>}/>
-      <Route path='/patient/:id' element={<ProtectedRoutes><PatientProfile/></ProtectedRoutes>}/>
-      <Route path="/employee/:id" element={<ProtectedRoutes><EmployeeProfile/></ProtectedRoutes>}/>
+      <Route path="/setting" element={<ProtectedRoutes roles={['admin']}><Setting/></ProtectedRoutes>}/>
+      <Route path='/patient/:id' element={<ProtectedRoutes roles={['admin', 'doctor', 'receptionist']}><PatientProfile/></ProtectedRoutes>}/>
+      <Route path="/employee/:id" element={<ProtectedRoutes roles={['admin']}><EmployeeProfile/></ProtectedRoutes>}/>
+      <Route path="/doctor/:id" element={<ProtectedRoutes><DoctorProfile roles={['admin', 'doctor', 'receptionist']}/></ProtectedRoutes>}/>
+      <Route path="/unauthorized" element={<ProtectedRoutes><UnAuthorized/></ProtectedRoutes>}/>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

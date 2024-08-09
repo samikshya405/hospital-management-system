@@ -1,27 +1,29 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Navigate } from 'react-router-dom'
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 
-const ProtectedRoutes = ({children}) => {
+const ProtectedRoutes = ({ children, roles }) => {
+    const dispatch = useDispatch();
+    const { user } = useSelector(state => state.user);
+    console.log("this is user", user);
 
-    const dispatch = useDispatch()
-    const {user} = useSelector(state=>state.user)
+    
+    if (!user || !user.department) {
+        
+        return <div>Loading...</div>;
+      }
 
-    //get user
-    const getUser=async()=>{
-        try {
-            
-        } catch (error) {
-            console.log(error);
-        }
-
+    
+    if (!localStorage.getItem("refreshJWT")) {
+        return <Navigate to='/login' />;
     }
- if(localStorage.getItem("refreshJWT")){
-    return children
 
- }else{
-    return <Navigate to ='/login' />
- }
-}
+    // Check if the user's role matches one of the allowed roles
+    if (roles && roles.length && !roles.includes(user.department.toLowerCase())) {
+        return <Navigate to='/unauthorized' />; 
+    }
 
-export default ProtectedRoutes
+    return children;
+};
+
+export default ProtectedRoutes;

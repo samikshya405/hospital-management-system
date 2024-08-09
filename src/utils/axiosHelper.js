@@ -3,6 +3,7 @@ const rootAPI = import.meta.env.VITE_APP_ROOTAPI;
 const userEP = rootAPI + "/users";
 const departmentEP = rootAPI + "/department";
 const employeeEP = rootAPI + "/employees";
+const patientEp = rootAPI + '/patients'
 
 export const postNewUser = async (userObj) => {
   try {
@@ -117,4 +118,18 @@ export const updateProfile=async(id, updatedProfile)=>{
     console.log(error);
     
   }
+}
+
+export const postNewPatient=async(personalDetails)=>{
+  try {
+    const { data } = await axios.post(patientEp, personalDetails);
+    return data;
+  } catch (error) {
+    console.log(error);
+    return {
+      status: "error",
+      message: error.message,
+    };
+  }
+
 }

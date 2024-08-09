@@ -2,6 +2,8 @@ import { Box, Button, Grid, InputLabel, Typography, useStepperContext } from '@m
 import React, { useState } from 'react'
 import { personalDetails } from '../main/dataSet';
 import { CustomInput, CustomSelect } from '../auth/CustomInput';
+import { useDispatch } from 'react-redux';
+import { getPatientDetails } from '../../redux/features/patientSlice';
 
 const initialState={
     fName:"",
@@ -22,6 +24,7 @@ const initialState={
 }
 const PersonalDetailsForm = ({activeForm, setActiveForm}) => {
     const [formData, setformData] = useState(initialState)
+    const dispatch = useDispatch()
     
     const handleChange=(e)=>{
         const { name, value } = e.target;
@@ -32,7 +35,7 @@ const PersonalDetailsForm = ({activeForm, setActiveForm}) => {
         e.preventDefault()
         setActiveForm(activeForm + 1)
 
-        console.log(formData);
+        dispatch(getPatientDetails(formData))
 
     }
   return (
@@ -46,7 +49,10 @@ const PersonalDetailsForm = ({activeForm, setActiveForm}) => {
             <Grid item xs={12}  md={6} key={input.id+ i}>
               {input.type !== "select" ? (
                 <>
-                  <InputLabel>{label}</InputLabel>
+                {
+                  input.required ? <InputLabel>{label}*</InputLabel>:<InputLabel>{label}</InputLabel>
+                }
+                  
                   <CustomInput
                     key={input.id}
                     {...input}
@@ -56,8 +62,10 @@ const PersonalDetailsForm = ({activeForm, setActiveForm}) => {
                 </>
               ) : (
                 <>
-                  {" "}
-                  <InputLabel>{label}</InputLabel>
+                 {
+                  input.required ? <InputLabel>{label}*</InputLabel>:<InputLabel>{label}</InputLabel>
+                }
+                  
                   <CustomSelect
                     input={input}
                     value={formData[input.name]}

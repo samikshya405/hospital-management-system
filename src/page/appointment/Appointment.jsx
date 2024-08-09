@@ -37,7 +37,7 @@ const Appointment = () => {
   const getDoctorList = async () => {
     const result = await getAllStaff();
     setDoctors(
-      result.employeeList.filter((item) => item.department === "doctor")
+      result.employeeList.filter((item) => item.department.toLowerCase() === "doctor")
     );
   };
 

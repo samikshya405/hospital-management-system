@@ -1,18 +1,53 @@
 // DoctorInformation.jsx
 
-import React from 'react';
-import MainLayout from '../../component/main/MainLayout';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Link } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import MainLayout from "../../component/main/MainLayout";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  
+  Button,
+} from "@mui/material";
+import { Link } from "react-router-dom";
 
-const doctors = [
-  { id: 1, name: 'Dr. Aric Lama', specialty: 'Cardiology' },
-  { id: 2, name: 'Dr. Sami Kharel', specialty: 'Neurology' },
-  { id: 3, name: 'Dr. Suraj Raut', specialty: 'Pediatrics' },
-  // Add more doctors as needed
-];
+// import { Link as RouterLink } from "react-router-dom";
+import { getAllStaff } from "../../utils/axiosHelper";
+
+// const doctors = [
+//   { id: 1, name: 'Dr. Aric Lama', specialty: 'Cardiology' },
+//   { id: 2, name: 'Dr. Sami Kharel', specialty: 'Neurology' },
+//   { id: 3, name: 'Dr. Suraj Raut', specialty: 'Pediatrics' },
+//   // Add more doctors as needed
+// ];
 
 const DoctorInformation = () => {
+  const [doctors, setDoctors] = useState([]);
+
+  const getDoctors = async () => {
+    const response = await getAllStaff();
+    if (response.status === "success") {
+      setDoctors(
+        response.employeeList.filter(
+          (employee) => employee.department.toLowerCase() === "doctor"
+        )
+      );
+      console.log(
+        response.employeeList.filter(
+          (employee) => employee.department.toLowerCase() === "doctor"
+        )
+      );
+    } else {
+      console.log("error fetching staffs");
+    }
+  };
+  useEffect(() => {
+    getDoctors();
+  }, []);
   return (
     <MainLayout title="Doctor Information">
       <TableContainer component={Paper}>
@@ -21,19 +56,21 @@ const DoctorInformation = () => {
             <TableRow>
               <TableCell>ID</TableCell>
               <TableCell>Name</TableCell>
-              <TableCell>Specialty</TableCell>
+              <TableCell>Email</TableCell>
+              <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {doctors.map((doctor) => (
-              <TableRow key={doctor.id}>
-                <TableCell>{doctor.id}</TableCell>
+            {doctors.map((doctor, i) => (
+              <TableRow key={doctor._id}>
+                <TableCell>{i + 1}</TableCell>
                 <TableCell>
-                  <Link sx={{textDecoration:"none"}} component={RouterLink} to={`/doctor/${doctor.id}`}>
-                    {doctor.name}
-                  </Link>
+                  {doctor.fName} {doctor.lName}
                 </TableCell>
-                <TableCell>{doctor.specialty}</TableCell>
+                <TableCell>{doctor.email}</TableCell>
+                <TableCell>
+                  <Link style={{color:"var(--dark)", textDecoration:"none"}} to={`/doctor/${doctor._id}`}>View Profile</Link>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
