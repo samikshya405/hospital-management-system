@@ -19,7 +19,7 @@ const initialState = {
   lName: "",
   dob: "",
   gender: "",
-  phone: 8998,
+  phone: "",
   email: "",
   department: "",
   jobTitle: "",
@@ -78,7 +78,7 @@ const staffDetails = [
     name: "phone",
     label: "Phone",
     id: "phone",
-    type: "number",
+    type: "string",
     required: true,
   },
   {

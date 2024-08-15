@@ -29,6 +29,8 @@ const StaffsTable = () => {
     const response = await getAllStaff();
     setIsLoading(false);
     setEmployeeList(response.employeeList);
+    console.log(response.employeeList);
+    
   };
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -76,11 +78,11 @@ const StaffsTable = () => {
                       <TableCell sx={{textTransform:"capitalize"}}>
                         {employee.fName} {employee.lName}
                       </TableCell>
-                      <TableCell sx={{textTransform:"capitalize"}}>{employee.department}</TableCell>
+                      <TableCell sx={{textTransform:"capitalize"}}>{employee?._doc.department}</TableCell>
                       <TableCell >{employee.email}</TableCell>
                       <TableCell >{employee.phone}</TableCell>
                       <TableCell>
-                        <Link style={{color:"var(--dark)"}}  to={`/employee/${employee._id}`}>
+                        <Link style={{color:"var(--dark)"}}  to={`/employee/${employee?._doc._id}`}>
                          View Profile
                         </Link>
 

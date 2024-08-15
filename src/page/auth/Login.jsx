@@ -59,7 +59,7 @@ const login = () => {
       pending: "In Progress...",
     });
     const result = await loginPromise;
-    console.log(result);
+
     if (result.status === "success") {
       navigate("/");
     }

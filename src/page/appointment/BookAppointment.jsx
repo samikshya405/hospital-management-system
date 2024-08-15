@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import MainLayout from "../../component/main/MainLayout";
 import { getRoster } from "../../utils/rosterAxios";
 import { generateAppointmentSlots } from "../../component/roster/helper";
-import { format, addDays } from "date-fns";
+import { format } from "date-fns";
 import {
   Box,
-  Button,
-  IconButton,
   Paper,
   Table,
   TableBody,
@@ -16,7 +14,6 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-// import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
@@ -24,7 +21,7 @@ const BookAppointment = () => {
   const [doctorsRoster, setDoctorsRoster] = useState([]);
   const [weekOffset, setWeekOffset] = useState(0);
 
-  // Get doctorRoster
+  // Get doctor roster
   const getDoctorRoster = async () => {
     const { data } = await getRoster();
     setDoctorsRoster(
@@ -42,14 +39,15 @@ const BookAppointment = () => {
     );
     return { ...item, availableSlot };
   });
+  console.log(timeSlots);
 
   useEffect(() => {
     getDoctorRoster();
   }, []);
 
-  // Generate next 7 days
+  // Generate the next 7 days
   const generateDays = (offset) => {
-    return Array.from({ length: 5 }, (_, i) => {
+    return Array.from({ length: 7 }, (_, i) => {
       const date = new Date();
       date.setDate(date.getDate() + i + offset * 7);
       return date;
@@ -58,6 +56,7 @@ const BookAppointment = () => {
 
   const days = generateDays(weekOffset);
 
+  // Group slots by doctor and date
   const groupedSlots = timeSlots.reduce((acc, doctor) => {
     if (!acc[doctor.staffName]) {
       acc[doctor.staffName] = {};
@@ -66,9 +65,10 @@ const BookAppointment = () => {
     days.forEach((day) => {
       const dateKey = format(day, "yyyy-MM-dd");
       acc[doctor.staffName][dateKey] = acc[doctor.staffName][dateKey] || [];
-      const slotsForDay = doctor.availableSlot.filter((slot) =>
-        slot.slot.startsWith(dateKey)
-      );
+      const slotsForDay = doctor.availableSlot.filter((slot) => {
+        const slotDate = format(new Date(slot.slot), "yyyy-MM-dd");
+        return slotDate === dateKey;
+      });
       acc[doctor.staffName][dateKey].push(...slotsForDay);
     });
     return acc;
@@ -99,11 +99,11 @@ const BookAppointment = () => {
       <Typography sx={{ fontWeight: "bold" }}>Available Time</Typography>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         {weekOffset > 0 ? (
-          <button onClick={handlePrevWeek} >
+          <button onClick={handlePrevWeek}>
             <ArrowBackIosIcon />
           </button>
         ) : (
-          <p></p>
+          <div></div>
         )}
         <button onClick={handleNextWeek}>
           <ArrowForwardIosIcon />
@@ -116,10 +116,9 @@ const BookAppointment = () => {
               <TableCell sx={{ fontWeight: "bold" }}>Doctor</TableCell>
               {days.map((day) => (
                 <TableCell key={day}>
-                  {" "}
                   <span style={{ fontWeight: "bold" }}>
                     {format(day, "eeee")}
-                  </span>{" "}
+                  </span>
                   <br />
                   <span style={{ fontSize: "10px" }}>
                     {format(day, "yyyy-MM-dd")}
@@ -135,35 +134,35 @@ const BookAppointment = () => {
                   <TableCell
                     sx={{ textTransform: "capitalize", minHeight: "700px" }}
                   >
-                    Dr.{roster}
+                    Dr. {roster}
                   </TableCell>
                   {days.map((day) => {
                     const dateKey = format(day, "yyyy-MM-dd");
                     const slotsForDay = groupedSlots[roster][dateKey];
                     return (
-                      <TableCell key={dateKey} sx={{ minHeight: "700px" }}>
+                      <TableCell
+                        key={dateKey}
+                        sx={{ minHeight: "700px", verticalAlign: "top" }}
+                      >
                         {slotsForDay.length > 0 ? (
-                          slotsForDay.map((slot, index) => {
-                            // const time = format(parse(slot.slot, "yyyy-MM-dd h:mm a", new Date()), "h:mm a");
-                            return (
-                              <Box key={index}>
-                                <Box
-                                  className="slot"
-                                  sx={{
-                                    border: "1px solid var(--dark)",
-                                    width: "100px",
-                                    py: 1,
-                                    px: 2,
-                                    mb: 1,
-                                    textAlign: "center",
-                                    cursor: "pointer",
-                                  }}
-                                >
-                                  {formatTime(slot.slot)}
-                                </Box>
+                          slotsForDay.map((slot, index) => (
+                            <Box key={index}>
+                              <Box
+                                className="slot"
+                                sx={{
+                                  border: "1px solid var(--dark)",
+                                  width: "100px",
+                                  py: 1,
+                                  px: 2,
+                                  mb: 1,
+                                  textAlign: "center",
+                                  cursor: "pointer",
+                                }}
+                              >
+                                {formatTime(slot.slot)}
                               </Box>
-                            );
-                          })
+                            </Box>
+                          ))
                         ) : (
                           <div>No slots</div>
                         )}

@@ -14,9 +14,10 @@ const Dashboard = () => {
 
   const menu = data.filter((item) =>
     item.access.find(
-      (ite) => ite.toLowerCase() === user.department.toLowerCase()
+      (ite) => ite?.toLowerCase() === user.department?.toLowerCase()
     )
   );
+
 
   const hanldeClick = (path) => {
     navigate(path);
@@ -58,7 +59,7 @@ const Dashboard = () => {
           </Grid>
         ))}
 
-        {user.department.toLowerCase() === "admin" && (
+        {user.department?.toLowerCase() === "admin" && (
           <>
             <Grid
               item

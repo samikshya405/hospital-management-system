@@ -10,12 +10,26 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import MainLayout from "../../component/main/MainLayout";
 import { Link } from "react-router-dom";
+import { getAllPatient } from "../../utils/axiosHelper";
 
 const Patients = () => {
+  const [patientList, setPatientList] = useState([])
+
+
+  const getPatientList =async()=>{
+    const data = await getAllPatient()
+    console.log(data);
+    setPatientList(data.result)
+  }
+
+  useEffect(()=>{
+    getPatientList()
+
+  },[])
   return (
     <MainLayout title={"Patient Information"}>
       <Box sx={{p:1, m:1}}>
@@ -26,66 +40,27 @@ const Patients = () => {
               <TableCell sx={{ fontWeight: "bold" }}>Name</TableCell>
               <TableCell sx={{ fontWeight: "bold" }}>D.O.B</TableCell>
               <TableCell sx={{ fontWeight: "bold" }}>Email</TableCell>
-              <TableCell sx={{ fontWeight: "bold" }}>Phone</TableCell>
+              {/* <TableCell sx={{ fontWeight: "bold" }}>Phone</TableCell> */}
               <TableCell sx={{ fontWeight: "bold" }}>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow>
-              <TableCell>Samikshya kharel</TableCell>
-              <TableCell>Receptionist</TableCell>
-              <TableCell>abc@gmail.com</TableCell>
-              <TableCell>4657845876</TableCell>
-              <TableCell>
-                 <Link sx={{textDecoration:"none"}} to={`/patient/${1}`}>
-                    view profile
-                  </Link>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Samikshya kharel</TableCell>
-              <TableCell>Receptionist</TableCell>
-              <TableCell>abc@gmail.com</TableCell>
-              <TableCell>4657845876</TableCell>
-              <TableCell>
-                 <Link sx={{textDecoration:"none"}} to={`/patient/${1}`}>
-                    view profile
-                  </Link>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Samikshya kharel</TableCell>
-              <TableCell>Receptionist</TableCell>
-              <TableCell>abc@gmail.com</TableCell>
-              <TableCell>4657845876</TableCell>
-              <TableCell>
-                 <Link sx={{textDecoration:"none"}} to={`/patient/${1}`}>
-                    view profile
-                  </Link>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Samikshya kharel</TableCell>
-              <TableCell>Receptionist</TableCell>
-              <TableCell>abc@gmail.com</TableCell>
-              <TableCell>4657845876</TableCell>
-              <TableCell>
-                 <Link sx={{textDecoration:"none"}} to={`/patient/${1}`}>
-                    view profile
-                  </Link>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Samikshya kharel</TableCell>
-              <TableCell>Receptionist</TableCell>
-              <TableCell>abc@gmail.com</TableCell>
-              <TableCell>4657845876</TableCell>
-              <TableCell>
-                 <Link sx={{textDecoration:"none"}} to={`/patient/${1}`}>
-                    view profile
-                  </Link>
-              </TableCell>
-            </TableRow>
+            {
+              patientList.map((patient)=>{
+                return <TableRow key={patient._id}>
+                <TableCell>{patient.fName} {patient.mName} {patient.lName}</TableCell>
+                <TableCell>{patient.dob.slice(0,10)}</TableCell>
+                <TableCell>{patient.email}</TableCell>
+                {/* <TableCell>{patient.phone}</TableCell> */}
+                <TableCell>
+                   <Link sx={{textDecoration:"none"}} to={`/patient/${patient._id}`}>
+                      view profile
+                    </Link>
+                </TableCell>
+              </TableRow>
+              })
+            }
+           
           </TableBody>
         </Table>
       </TableContainer>

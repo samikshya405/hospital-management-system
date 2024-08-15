@@ -46,8 +46,10 @@ function RosterForm({ day, deptName, staffs, getRosterData, rosterData }) {
   const [showEndDate, setShowEndDate] = useState("");
   const [overLapped, setOverLapped] = useState(false);
   const [shiftData, setShiftData] = useState(initialState);
+  console.log(staffs);
+  
 
-  const staffToShow = staffs.filter((staff) => staff.department === deptName);
+  const staffToShow = staffs.filter((staff) => staff?._doc.department?.toLowerCase() === deptName?.toLowerCase());
   const date = day.date.toString().slice(0, 10);
 
   useEffect(() => {

@@ -133,3 +133,13 @@ export const postNewPatient=async(personalDetails)=>{
   }
 
 }
+
+export const getAllPatient = async()=>{
+  try {
+    const response = await axios.get(patientEp);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+
+}
