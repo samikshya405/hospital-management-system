@@ -1,71 +1,76 @@
+// DoctorInformation.jsx
+
+import React, { useEffect, useState } from "react";
+import MainLayout from "../../component/main/MainLayout";
 import {
-  Box,
-  Button,
-  IconButton,
-  Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
+  Paper,
+  
+  Button,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
-
-import MainLayout from "../../component/main/MainLayout";
 import { Link } from "react-router-dom";
-import { getAllPatient } from "../../utils/axiosHelper";
+
+
+import { getAllStaff } from "../../utils/axiosHelper";
+
+
 
 const Patients = () => {
-  const [patientList, setPatientList] = useState([])
+  const [doctors, setDoctors] = useState([]);
 
-
-  const getPatientList =async()=>{
-    const data = await getAllPatient()
-    console.log(data);
-    setPatientList(data.result)
-  }
-
-  useEffect(()=>{
-    getPatientList()
-
-  },[])
+  const getDoctors = async () => {
+    const response = await getAllStaff();
+    if (response.status === "success") {
+      setDoctors(
+        response.employeeList.filter(
+          (employee) => employee?._doc?.department.toLowerCase() === "doctor"
+        )
+      );
+      console.log(
+        response.employeeList.filter(
+          (employee) => employee?._doc?.department.toLowerCase() === "doctor"
+        )
+      );
+    } else {
+      console.log("error fetching staffs");
+    }
+  };
+  useEffect(() => {
+    getDoctors();
+  }, []);
   return (
-    <MainLayout title={"Patient Information"}>
-      <Box sx={{p:1, m:1}}>
+    <MainLayout title="Doctor Information">
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ fontWeight: "bold" }}>Name</TableCell>
-              <TableCell sx={{ fontWeight: "bold" }}>D.O.B</TableCell>
-              <TableCell sx={{ fontWeight: "bold" }}>Email</TableCell>
-              {/* <TableCell sx={{ fontWeight: "bold" }}>Phone</TableCell> */}
-              <TableCell sx={{ fontWeight: "bold" }}>Action</TableCell>
+              <TableCell>ID</TableCell>
+              <TableCell>Name</TableCell>
+              <TableCell>Email</TableCell>
+              <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {
-              patientList.map((patient)=>{
-                return <TableRow key={patient._id}>
-                <TableCell>{patient.fName} {patient.mName} {patient.lName}</TableCell>
-                <TableCell>{patient?._doc?.dob.slice(0,10)}</TableCell>
-                <TableCell>{patient.email}</TableCell>
-                {/* <TableCell>{patient.phone}</TableCell> */}
+            {doctors.map((doctor, i) => (
+              <TableRow key={doctor._id}>
+                <TableCell>{i + 1}</TableCell>
                 <TableCell>
-                   <Link sx={{textDecoration:"none"}} to={`/patient/${patient?._doc?._id}`}>
-                      view profile
-                    </Link>
+                  {doctor.fName} {doctor.lName}
+                </TableCell>
+                <TableCell>{doctor.email}</TableCell>
+                <TableCell>
+                  <Link style={{color:"var(--dark)", textDecoration:"none"}} to={`/doctor/${doctor?._doc?._id}`}>View Profile</Link>
                 </TableCell>
               </TableRow>
-              })
-            }
-           
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
-      </Box>
-     
     </MainLayout>
   );
 };

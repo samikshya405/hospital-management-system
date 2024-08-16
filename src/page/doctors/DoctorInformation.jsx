@@ -15,15 +15,10 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
-// import { Link as RouterLink } from "react-router-dom";
+
 import { getAllStaff } from "../../utils/axiosHelper";
 
-// const doctors = [
-//   { id: 1, name: 'Dr. Aric Lama', specialty: 'Cardiology' },
-//   { id: 2, name: 'Dr. Sami Kharel', specialty: 'Neurology' },
-//   { id: 3, name: 'Dr. Suraj Raut', specialty: 'Pediatrics' },
-//   // Add more doctors as needed
-// ];
+
 
 const DoctorInformation = () => {
   const [doctors, setDoctors] = useState([]);
