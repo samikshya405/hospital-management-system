@@ -13,6 +13,7 @@ import { CustomInput, CustomSelect } from "../auth/CustomInput";
 import { personalDetails } from "../main/dataSet";
 import { Form } from "react-router-dom";
 import { addNewEmployee, getDepartmentList } from "../../utils/axiosHelper";
+import {toast} from 'react-toastify'
 const initialState = {
   fName: "",
   mName: "",
@@ -164,7 +165,12 @@ const EmployeeOnboardingForm = () => {
     e.preventDefault();
     
     const employeeId = generateUniqueId();
-    const response = await addNewEmployee({ ...formData, employeeId });
+    const addpromise = addNewEmployee({ ...formData, employeeId })
+    toast.promise(addpromise, {
+      pending: "In Progress...",
+    });
+   
+    const response = await addpromise;
 
     setformData(initialState);
   };
@@ -186,7 +192,9 @@ const EmployeeOnboardingForm = () => {
               <Grid item xs={12} md={6} key={input.id + i}>
                 {input.type !== "select" ? (
                   <>
-                    <InputLabel>{label}</InputLabel>
+                       {
+                  input.required ? <InputLabel>{label}*</InputLabel>:<InputLabel>{label}</InputLabel>
+                }
                     <CustomInput
                       value={formData[input.name]}
                       key={input.id}
@@ -197,7 +205,9 @@ const EmployeeOnboardingForm = () => {
                 ) : (
                   <>
                     {" "}
-                    <InputLabel>{label}</InputLabel>
+                    {
+                  input.required ? <InputLabel>{label}*</InputLabel>:<InputLabel>{label}</InputLabel>
+                }
                     <CustomSelect
                       input={input}
                       value={formData[input.name]}
@@ -209,7 +219,7 @@ const EmployeeOnboardingForm = () => {
             );
           })}
           <Grid item xs={12} md={6}>
-            <InputLabel>Department</InputLabel>
+            <InputLabel>Department *</InputLabel>
             <Select
               value={formData.department}
               name="department"
@@ -230,7 +240,9 @@ const EmployeeOnboardingForm = () => {
               <Grid item xs={12} md={6} key={input.id + i}>
                 {input.type !== "select" ? (
                   <>
-                    <InputLabel>{label}</InputLabel>
+                     {
+                  input.required ? <InputLabel>{label}*</InputLabel>:<InputLabel>{label}</InputLabel>
+                }
                     <CustomInput
                       key={input.id}
                       {...input}
@@ -241,7 +253,7 @@ const EmployeeOnboardingForm = () => {
                 ) : (
                   <>
                     {" "}
-                    <InputLabel>{label}</InputLabel>
+                    <InputLabel>{label}*</InputLabel>
                     <CustomSelect
                       input={input}
                       value={formData[input.name]}
