@@ -4,7 +4,7 @@ import {
   Button,
   FormControlLabel,
   Grid,
-  Link,
+  
   TextField,
   Typography,
 } from "@mui/material";
@@ -14,7 +14,7 @@ import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import { CustomInput, CustomSelect } from "../../component/auth/CustomInput";
 import { fetchUserInfo, userLogin } from "../../utils/axiosHelper";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getUser } from "../../redux/features/userSlice";
 
@@ -129,6 +129,16 @@ const login = () => {
               Log In
             </Button>
           </Box>
+          <Box sx={{textAlign:"center"}}>
+          <Link to='/signUp'>
+          <Button>SignUp</Button>
+
+          </Link>
+
+          </Box>
+          
+
+          
         </Grid>
       </Grid>
     </Box>

@@ -4,7 +4,7 @@ import {
   Button,
   FormControlLabel,
   Grid,
-  Link,
+ 
   TextField,
   Typography,
 } from "@mui/material";
@@ -13,6 +13,7 @@ import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import { CustomInput, CustomSelect } from "../../component/auth/CustomInput";
 import { postNewUser } from "../../utils/axiosHelper";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 const inputs = [
   {
     name: "department",
@@ -177,7 +178,7 @@ const SignUp = () => {
               </Button>
             )}
             <Typography align="center">
-              <Link href="/" variant="body2" align="center">
+              <Link to={'/login'}  variant="body2" align="center">
                 {"Already have an account? Login In"}
               </Link>
             </Typography>
