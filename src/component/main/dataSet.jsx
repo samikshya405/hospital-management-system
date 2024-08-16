@@ -58,13 +58,13 @@ export const data = [
   },
   
 
-  {
-    department: "Billing and Payment",
-    img: billing,
-    link: "/billing",
-    icon: TbReportMoney,
-    access:[ "receptionist","admin"]
-  },
+  // {
+  //   department: "Billing and Payment",
+  //   img: billing,
+  //   link: "/billing",
+  //   icon: TbReportMoney,
+  //   access:[ "receptionist","admin"]
+  // },
   {
     department: "Patient Information",
     img: patient,
@@ -73,13 +73,13 @@ export const data = [
     access:["doctor", "receptionist","admin"]
   },
 
-  {
-    department: "Statistic and Reports",
-    img: graph,
-    link: "/statistic",
-    icon: LeaderboardIcon,
-    access:["admin"]
-  },
+  // {
+  //   department: "Statistic and Reports",
+  //   img: graph,
+  //   link: "/statistic",
+  //   icon: LeaderboardIcon,
+  //   access:["admin"]
+  // },
   {
     department:"Settings",
     img:setting,
