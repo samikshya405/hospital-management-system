@@ -39,7 +39,7 @@ export default function EditDetails({
   getAllEmployee,
 }) {
   const initialState = {
-    dob:employeeDetails?.dob?.slice(0,10)
+    dob:employeeDetails?._doc?.dob?.slice(0,10)
   };
   const [formData, setFormData] = useState(initialState);
   const handleChange = (e) => {

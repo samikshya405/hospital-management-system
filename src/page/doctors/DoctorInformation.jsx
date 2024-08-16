@@ -33,12 +33,12 @@ const DoctorInformation = () => {
     if (response.status === "success") {
       setDoctors(
         response.employeeList.filter(
-          (employee) => employee.department.toLowerCase() === "doctor"
+          (employee) => employee?._doc?.department.toLowerCase() === "doctor"
         )
       );
       console.log(
         response.employeeList.filter(
-          (employee) => employee.department.toLowerCase() === "doctor"
+          (employee) => employee?._doc?.department.toLowerCase() === "doctor"
         )
       );
     } else {
@@ -69,7 +69,7 @@ const DoctorInformation = () => {
                 </TableCell>
                 <TableCell>{doctor.email}</TableCell>
                 <TableCell>
-                  <Link style={{color:"var(--dark)", textDecoration:"none"}} to={`/doctor/${doctor._id}`}>View Profile</Link>
+                  <Link style={{color:"var(--dark)", textDecoration:"none"}} to={`/doctor/${doctor?._doc?._id}`}>View Profile</Link>
                 </TableCell>
               </TableRow>
             ))}

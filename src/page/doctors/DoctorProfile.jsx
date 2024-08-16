@@ -38,7 +38,7 @@ const DoctorProfile = () => {
     setEmployeeList(result.employeeList);
   };
 
-  const employeeDetails = employeeList.find((employee) => employee._id === id);
+  const employeeDetails = employeeList.find((employee) => employee._doc._id === id);
   console.log(employeeDetails);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const DoctorProfile = () => {
   }
 
   return (
-    <MainLayout title={`${employeeDetails.fName}'s Profile`}>
+    <MainLayout title={`${employeeDetails?.fName}'s Profile`}>
       <Box sx={{ px: 2 }}>
         <Link to={"/staffs"}>
           <Button style={{ color: "var(--primary)" }}>
@@ -230,7 +230,7 @@ const DoctorProfile = () => {
                     Date of Birth
                   </Typography>
                   <Typography sx={{ display: "flex" }}>
-                    {employeeDetails.dob.slice(0, 10)} <CalendarMonthIcon />
+                    {employeeDetails?._doc?.dob.slice(0, 10)} <CalendarMonthIcon />
                   </Typography>
                 </Box>
                 <Box>

@@ -49,11 +49,11 @@ const Patients = () => {
               patientList.map((patient)=>{
                 return <TableRow key={patient._id}>
                 <TableCell>{patient.fName} {patient.mName} {patient.lName}</TableCell>
-                <TableCell>{patient.dob.slice(0,10)}</TableCell>
+                <TableCell>{patient?._doc?.dob.slice(0,10)}</TableCell>
                 <TableCell>{patient.email}</TableCell>
                 {/* <TableCell>{patient.phone}</TableCell> */}
                 <TableCell>
-                   <Link sx={{textDecoration:"none"}} to={`/patient/${patient._id}`}>
+                   <Link sx={{textDecoration:"none"}} to={`/patient/${patient?._doc?._id}`}>
                       view profile
                     </Link>
                 </TableCell>

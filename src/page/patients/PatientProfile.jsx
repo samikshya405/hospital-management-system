@@ -40,7 +40,7 @@ const PatientProfile = () => {
 
   },[])
 
-  const patientDetails = patientList.find(patient=>patient._id === id)
+  const patientDetails = patientList.find(patient=>patient?._doc?._id === id)
   console.log(patientDetails);
 
   if (loading) {
@@ -222,7 +222,7 @@ const PatientProfile = () => {
                     Date of Birth
                   </Typography>
                   <Typography sx={{ display: "flex" }}>
-                    {patientDetails.dob.slice(0,10)} <CalendarMonthIcon />
+                    {patientDetails?._doc?.dob.slice(0,10)} <CalendarMonthIcon />
                   </Typography>
                 </Box>
                 <Box>
